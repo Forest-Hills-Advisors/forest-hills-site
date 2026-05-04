@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Hills Realty Advisors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+        }
+        
+        h1, h2, h3, .serif { 
+            font-family: 'Playfair Display', serif; 
+        }
+        
+        /* Smooth scrolling for navigation links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gray-200">
+
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-8 flex justify-between items-center border-b border-gray-100">
+        <div class="text-xl md:text-2xl font-semibold serif tracking-tight">Forest Hills Realty Advisors</div>
+        <div class="hidden md:flex space-x-8 text-xs md:text-sm uppercase tracking-widest text-gray-500 font-semibold">
+            <a href="#services" class="hover:text-black transition duration-300">Services</a>
+            <a href="#about" class="hover:text-black transition duration-300">About</a>
+            <a href="#contact" class="hover:text-black transition duration-300">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="container mx-auto px-6 py-24 text-center md:py-40 md:text-left md:flex items-center">
+        <div class="md:w-1/2 pr-0 md:pr-12">
+            <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-8">Elevating the Real Estate Experience.</h1>
+            <p class="text-lg md:text-xl text-gray-500 mb-10 font-light leading-relaxed max-w-xl mx-auto md:mx-0">
+                A high-touch advisory firm dedicated to navigating complex transactions across the Manhattan market and Queens. We provide trusted, firm guidance for buyers, investors, and developers.
+            </p>
+            <a href="#contact" class="inline-block bg-black text-white px-8 py-4 uppercase tracking-wider text-sm hover:bg-gray-800 transition duration-300">Schedule a Consultation</a>
+        </div>
+        <div class="md:w-1/2 mt-16 md:mt-0 relative hidden md:block">
+             <!-- Placeholder for a high-end architectural hero image -->
+             <div class="bg-gray-50 h-[500px] w-full rounded-tr-[120px] flex items-center justify-center border border-gray-100 shadow-sm overflow-hidden relative">
+                <div class="absolute inset-0 bg-gradient-to-tr from-gray-100 to-white opacity-50"></div>
+                <span class="text-gray-300 uppercase tracking-widest text-sm z-10">Modern Architectural Image Placeholder</span>
+             </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-gray-50 py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-semibold mb-6">Our Expertise</h2>
+                <div class="w-16 h-0.5 bg-black mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Service 1 -->
+                <div class="bg-white p-12 shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
+                    <div class="w-12 h-12 border border-black rounded-full flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition duration-300">
+                        <span class="serif italic text-xl">1</span>
+                    </div>
+                    <h3 class="text-2xl mb-4 font-semibold">Single Family Buyers</h3>
+                    <p class="text-gray-600 font-light leading-relaxed text-sm md:text-base">Strategic acquisition support tailored for discerning single-family home buyers, ensuring confident decisions in competitive markets.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white p-12 shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
+                     <div class="w-12 h-12 border border-black rounded-full flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition duration-300">
+                        <span class="serif italic text-xl">2</span>
+                    </div>
+                    <h3 class="text-2xl mb-4 font-semibold">Condo & Co-Op</h3>
+                    <p class="text-gray-600 font-light leading-relaxed text-sm md:text-base">Navigating the rigorous nuances of board packages, building financials, and complex negotiations for premier cooperative and condominium properties.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white p-12 shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
+                     <div class="w-12 h-12 border border-black rounded-full flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition duration-300">
+                        <span class="serif italic text-xl">3</span>
+                    </div>
+                    <h3 class="text-2xl mb-4 font-semibold">Investor Advisory</h3>
+                    <p class="text-gray-600 font-light leading-relaxed text-sm md:text-base">Comprehensive consulting for real estate investors. We offer targeted insights and data-driven analysis for ground-up or value-add multi-family development projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container mx-auto px-6 py-32 flex flex-col md:flex-row items-center gap-16">
+         <div class="md:w-1/2 w-full order-2 md:order-1">
+            <!-- Placeholder for Founder Portrait or Office Image -->
+            <div class="bg-gray-100 h-[600px] w-full flex items-center justify-center border border-gray-200">
+               <span class="text-gray-400 uppercase tracking-widest text-sm px-4 text-center">Alexandru Galiceanu<br>Founder Portrait Placeholder</span>
+            </div>
+        </div>
+        
+        <div class="md:w-1/2 w-full order-1 md:order-2">
+            <h2 class="text-4xl font-semibold mb-8">A Trusted Advisor</h2>
+            <div class="space-y-6 text-gray-600 font-light leading-relaxed">
+                <p>
+                    Led by Alexandru Galiceanu, Forest Hills Realty Advisors was established to provide an elevated standard of service in the New York real estate landscape. We don't just facilitate transactions; we partner with our clients to offer clear, authoritative guidance at every stage of the process.
+                </p>
+                <p>
+                    Whether managing prime listings at One West End or advising on bespoke property acquisitions in Forest Hills, our approach remains resolute: protecting your interests with unwavering professionalism and a firm commitment to your success.
+                </p>
+            </div>
+            <div class="mt-10">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Real_Estate_Board_of_New_York_logo.svg/512px-Real_Estate_Board_of_New_York_logo.svg.png" alt="REBNY Logo" class="h-12 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition duration-300">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact CTA -->
+    <footer id="contact" class="bg-black text-white py-24">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl serif mb-8">Ready to move forward?</h2>
+            <p class="text-gray-400 font-light mb-12 max-w-lg mx-auto leading-relaxed">
+                We'd like to invite you to discuss your real estate objectives and explore how our advisory services can align with your portfolio goals.
+            </p>
+            <a href="mailto:contact@foresthillsadvisors.com" class="inline-block border border-white px-10 py-4 uppercase tracking-wider text-sm hover:bg-white hover:text-black transition duration-300">
+                Contact Our Office
+            </a>
+            
+            <div class="mt-32 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs tracking-wider uppercase">
+                <div class="mb-4 md:mb-0">
+                    &copy; 2026 Forest Hills Realty Advisors. All rights reserved.
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+```eof
