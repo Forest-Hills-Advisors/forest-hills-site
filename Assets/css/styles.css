@@ -1,51 +1,57 @@
 body {
-  margin: 0;
-  font-family: "Helvetica Neue", sans-serif;
-  color: #1a1a1a;
+margin: 0;
+font-family: “Helvetica Neue”, Arial, sans-serif;
 }
 
-/* FHA (Luxury) */
+/* FHA Theme */
 body.fha {
-  background: #0f2a23;
-  color: #d4af37;
+background: #0f2a23;
+color: #d4af37;
 }
 
+/* Layout */
 .hero {
-  text-align: center;
-  padding: 100px 20px;
-}
-
-.logo {
-  width: 80px;
-  margin-bottom: 20px;
+text-align: center;
+padding: 140px 20px 60px;
 }
 
 h1 {
-  letter-spacing: 4px;
-  font-weight: 500;
+font-size: 36px;
+letter-spacing: 4px;
+margin-bottom: 10px;
 }
 
 .tagline {
-  opacity: 0.8;
+font-size: 16px;
+opacity: 0.8;
+letter-spacing: 2px;
 }
 
 .intro {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 40px;
+max-width: 600px;
+margin: 0 auto;
+text-align: center;
+padding: 20px 30px;
+line-height: 1.6;
 }
 
+.cta {
+text-align: center;
+margin-top: 30px;
+}
+
+/* Button */
 .button {
-  display: inline-block;
-  padding: 12px 24px;
-  border: 1px solid #d4af37;
-  color: #d4af37;
-  text-decoration: none;
-  margin-top: 20px;
+display: inline-block;
+padding: 14px 28px;
+border: 1px solid #d4af37;
+color: #d4af37;
+text-decoration: none;
+letter-spacing: 1px;
+transition: 0.3s ease;
 }
 
 .button:hover {
-  background: #d4af37;
-  color: #0f2a23;
+background: #d4af37;
+color: #0f2a23;
 }
