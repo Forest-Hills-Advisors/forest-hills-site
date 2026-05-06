@@ -1,0 +1,548 @@
+[slides]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Hills Advisors Identity System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f5f9;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #F9F7F2; /* Warm Cream Background */
+  border-radius: 4px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 80px;
+  position: relative;
+  width: 1280px;
+}
+
+/* DECORATIVE ELEMENTS */
+
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle at 100% 0%, rgba(197, 160, 89, 0.04) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* 2. CONSISTENT TYPOGRAPHY */
+
+.slide-container h1,
+.slide-container h2,
+.slide-container .slide-title {
+  color: #1B3022; /* Forest Green */
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+.slide-container p,
+.slide-container li,
+.slide-container .subtitle,
+.slide-container th,
+.slide-container td {
+  color: #4A5568;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+}
+
+.slide-container h1 {
+  font-size: 80px;
+  letter-spacing: -1px;
+}
+
+.slide-container .slide-title {
+  font-size: 48px;
+  margin-bottom: 50px;
+  text-align: left;
+  width: 100%;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.slide-container .slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background-color: #C5A059; /* Muted Gold */
+}
+
+.slide-container .subtitle {
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #C5A059;
+  margin-bottom: 15px;
+}
+
+.slide-container .content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 3. LAYOUT DEFINITIONS */
+
+.title-layout {
+  text-align: center;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  width: 100%;
+  align-items: center;
+}
+
+.two-column.tiled > div {
+  padding: 40px;
+  background: white;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.two-column h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: #1B3022;
+  margin-bottom: 20px;
+}
+
+.image-wrapper {
+  overflow: hidden;
+  height: 450px;
+  width: 100%;
+  border: 1px solid #E2E8F0;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tiled-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.tile {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 2px;
+  border-top: 4px solid #1B3022;
+  text-align: left;
+}
+
+.tile i {
+  color: #C5A059;
+  font-size: 36px;
+  margin-bottom: 25px;
+}
+
+.tile h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.full-bg-image {
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+}
+
+.full-bg-image .overlay {
+  background-color: rgba(27, 48, 34, 0.4);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px;
+}
+
+.full-bg-image h2 { color: white; font-size: 72px; }
+.full-bg-image p { color: #f9f7f2; font-size: 24px; max-width: 800px; }
+
+/* Table Styling */
+.table-layout table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-layout th {
+  text-align: left;
+  padding: 20px;
+  background: #1B3022;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.table-layout td {
+  padding: 20px;
+  border-bottom: 1px solid #E2E8F0;
+  background: white;
+}
+
+/* Timeline */
+.timeline-layout {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #C5A059;
+}
+
+.timeline-item {
+  width: 22%;
+  position: relative;
+  padding-top: 70px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 46px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: #1B3022;
+  border-radius: 50%;
+}
+
+.timeline-item h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* Highlight Number */
+.highlight-numbers-layout {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.highlight-numbers-layout .number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 160px;
+  color: #1B3022;
+  line-height: 1;
+}
+
+.highlight-numbers-layout .text-box {
+  border-left: 2px solid #C5A059;
+  padding-left: 40px;
+}
+
+/* Bleed Layout */
+.bleed-image-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+  align-items: start;
+}
+
+.bleed-image-layout .content-container {
+  padding: 100px 80px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bleed-image-side {
+  width: 100%;
+  height: 720px;
+  object-fit: cover;
+}
+
+/* Rounded Profile */
+.rounded-image-layout .image-wrapper {
+  border-radius: 50%;
+  width: 380px;
+  height: 380px;
+  border: 1px solid #C5A059;
+  padding: 10px;
+}
+
+.rounded-image-layout .image-wrapper img {
+  border-radius: 50%;
+}
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <div class="subtitle">Brand Identity System</div>
+        <h1>Forest Hills Advisors</h1>
+        <div style="width: 100px; height: 1px; background: #C5A059; margin: 40px auto;"></div>
+        <p style="font-size: 22px; font-style: italic; color: #1B3022;">Redefining Storybook Luxury for a Heritage Market</p>
+    </div>
+</div>
+
+<div class="slide-container full-bg-image" id="slide2" style="background-image: url('http://googleusercontent.com/image_collection/image_retrieval/5283199965411803087');">
+    <div class="overlay">
+        <h2>Garden City Legacy</h2>
+        <p>A community designed not for speculation, but for beauty, balance, and belonging. Our brand lives within the curvature of Olmsted’s streets and the precision of Atterbury’s brickwork.</p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Brand Architecture</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Realty Advisors (FHRA)</h3>
+                <p><strong>Focus:</strong> Heritage Leasing & Management</p>
+                <p><strong>Persona:</strong> The Local Institution. Rooted, historic, and reliable. Drawing from the craftsmanship of the early 20th century to offer a "trusted neighbor" experience.</p>
+            </div>
+            <div>
+                <h3>Forest Hills Advisors (FHA)</h3>
+                <p><strong>Focus:</strong> Ultra-Luxury Sales</p>
+                <p><strong>Persona:</strong> The Modern Curator. Minimal, architectural, and precise. A refined, editorial approach for high-net-worth acquisitions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Heritage: Realty Advisors</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p style="font-size: 24px; color: #1B3022; margin-bottom: 30px; font-family: 'Cormorant Garamond', serif;">"A brand that feels forged, not designed."</p>
+                <p>FHRA utilizes a custom wordmark inspired by the 1906 station signage. It represents a commitment to the historical narrative of the Gardens, using wrought-iron stencils and deep forest green to establish immediate credibility.</p>
+                <ul style="list-style: none; padding: 0; margin-top: 30px;">
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-check" style="color: #C5A059; margin-right: 15px;"></i> LIRR-inspired Custom Typography</li>
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-check" style="color: #C5A059; margin-right: 15px;"></i> Wrought-Iron Decorative Motifs</li>
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-check" style="color: #C5A059; margin-right: 15px;"></i> Traditional Heritage Palette</li>
+                </ul>
+            </div>
+            <div class="image-wrapper" style="border: none;">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/16421233103499403515" alt="Wrought iron real estate sign">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container bleed-image-layout" id="slide5">
+    <div class="content-container">
+        <h2 class="slide-title">Luxury: Forest Hills Advisors</h2>
+        <p>For the luxury sales division, we pivot to architectural restraint. This is about precision and the luxury of negative space. The FHA mark is designed for premium applications: brass plaques, gold foil, and heavy-stock embossed paper.</p>
+        <div style="margin-top: 40px; padding: 30px; background: #fff; border-left: 2px solid #C5A059;">
+            <p style="font-style: italic;">"Minimalism in real estate branding is the ultimate form of confidence."</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <img class="bleed-image-side" src="http://googleusercontent.com/image_collection/image_retrieval/12532861752248142903" alt="Brass plaque mockup">
+    </div>
+</div>
+
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Typographic Definition</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Brand Segment</th>
+                        <th>Primary Typeface</th>
+                        <th>Design Intent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>FHRA (Heritage)</strong></td>
+                        <td>Custom LIRR Stencil</td>
+                        <td>Fabricated, slightly irregular, signage-inspired.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FHA (Luxury)</strong></td>
+                        <td>Architectural Serif</td>
+                        <td>High-contrast, elegant, vertical emphasis.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Body</strong></td>
+                        <td>DM Sans / Montserrat</td>
+                        <td>Modern legibility, neutral balance, high-scale.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accents</strong></td>
+                        <td>Cormorant Garamond</td>
+                        <td>Magazine-like, editorial, boutique hotel aesthetic.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Environmental Curation</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div style="text-align: center;">
+                <div class="image-wrapper" style="height: 300px; margin-bottom: 20px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/5838661769574234073" alt="Iron signage detail">
+                </div>
+                <h3 style="font-family: 'Cormorant Garamond'; font-size: 24px; color: #1B3022;">Fabricated Detail</h3>
+            </div>
+            <div style="text-align: center;">
+                <div class="image-wrapper" style="height: 300px; margin-bottom: 20px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/16154801219055183346" alt="Tudor brickwork">
+                </div>
+                <h3 style="font-family: 'Cormorant Garamond'; font-size: 24px; color: #1B3022;">Material Honesty</h3>
+            </div>
+            <div style="text-align: center;">
+                <div class="image-wrapper" style="height: 300px; margin-bottom: 20px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/13292570390913410147" alt="Brass key fob">
+                </div>
+                <h3 style="font-family: 'Cormorant Garamond'; font-size: 24px; color: #1B3022;">Tactile Luxury</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">The Unified Monogram</h2>
+    <div class="content-area">
+        <div class="two-column rounded-image-layout">
+            <div>
+                <div class="image-wrapper">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/11382084725542042092" alt="Business card with monogram">
+                </div>
+            </div>
+            <div>
+                <h3>Weaving F-H-A</h3>
+                <p>The monogram serves as the connective tissue between brands. By designate a clear diagonal vertex for the 'A', we've created a mark that feels both ancient and cutting-edge.</p>
+                <p style="margin-top: 20px;">It is balanced to work as a small-scale social icon or as a large-scale iron gateway emblem. The geometry is derived directly from the Tudor arch structures found throughout the Gardens.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Market Credibility</h2>
+    <div class="content-area">
+        <div class="highlight-numbers-layout">
+            <div class="number">92%</div>
+            <div class="text-box">
+                <h3>The "Institution" Effect</h3>
+                <p>When a brand mimics the established historical signage of a neighborhood, consumer trust is established instantly. We aren't just a real estate firm; we are the stewards of the community's legacy.</p>
+                <p style="margin-top: 15px; color: #C5A059;">Projected Increase in Brand Authority</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Brand Standards</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <i class="fa-solid fa-palette"></i>
+                <h3>Color Palette</h3>
+                <p><strong>Primary:</strong> Forest Green (#1B3022)<br><strong>Secondary:</strong> Muted Gold (#C5A059)<br><strong>Base:</strong> Cream (#F9F7F2)</p>
+            </div>
+            <div class="tile">
+                <i class="fa-solid fa-expand"></i>
+                <h3>Scalability</h3>
+                <p>Secondary marks are stripped of ornaments for digital applications under 100px to ensure legibility across Zillow and MLS platforms.</p>
+            </div>
+            <div class="tile">
+                <i class="fa-solid fa-gem"></i>
+                <h3>Materiality</h3>
+                <p>Physical assets must use tactile finishes: Brushed brass, hammered iron, and velvet-touch cardstock with gold foil stamping.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">Deployment Roadmap</h2>
+    <div class="content-area">
+        <div class="timeline-layout">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <h3>Q1: Core Identity</h3>
+                <p>Finalize custom typography and monogram variations.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Q2: Fabrications</h3>
+                <p>Station-style signage and brass plaques installation.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Q3: Digital Ecosystem</h3>
+                <p>Launch of high-end editorial website and MLS skinning.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Q4: Market Blitz</h3>
+                <p>Local sponsorship and physical collateral distribution.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide12">
+    <div class="title-layout">
+        <div class="subtitle">Next Steps</div>
+        <h1>Any Questions?</h1>
+        <div style="width: 100px; height: 1px; background: #C5A059; margin: 40px auto;"></div>
+        <p>www.foresthillsadvisors.com | @foresthillsadvisors</p>
+    </div>
+</div>
+
+</body>
+</html>
+
+
