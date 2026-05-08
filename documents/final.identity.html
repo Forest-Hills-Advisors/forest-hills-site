@@ -1,0 +1,517 @@
+[slides]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Hills Advisors Identity Update</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+body {
+  background-color: #e2e8f0;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #FAF9F6; /* Warm Cream Background */
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+  height: 720px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 60px 80px;
+  position: relative;
+  width: 1280px;
+}
+
+/* 1.1 BACKGROUND DECORATION */
+
+.slide-container::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-image: radial-gradient(circle at 100% 0%, rgba(197, 160, 89, 0.05) 0%, transparent 45%),
+                    radial-gradient(circle at 0% 100%, rgba(27, 48, 34, 0.03) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. TYPOGRAPHY */
+
+h1, h2, .slide-title {
+  color: #1B3022; /* Forest Green */
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+p, li, .subtitle, th, td, .number-label {
+  color: #4A5568;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.slide-container h1 {
+  font-size: 84px;
+  letter-spacing: -2px;
+}
+
+.slide-container .slide-title {
+  font-size: 48px;
+  margin-bottom: 40px;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid #C5A059; /* Muted Gold Accent */
+  padding-bottom: 15px;
+}
+
+.slide-container .subtitle {
+  font-size: 20px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #C5A059;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.slide-container .content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 3. LAYOUT DEFINITIONS */
+
+.title-layout {
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  width: 100%;
+  align-items: center;
+}
+
+.two-column.tiled > div {
+  background: white;
+  padding: 40px;
+  border-left: 4px solid #1B3022;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+.image-wrapper {
+  border: 1px solid #E5E0D8;
+  height: 400px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.image-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.rounded-image-layout .image-wrapper {
+  border-radius: 50%;
+  height: 380px;
+  width: 380px;
+  margin: 0 auto;
+  border: 1px solid #C5A059;
+  padding: 15px;
+}
+
+.rounded-image-layout .image-wrapper img {
+  border-radius: 50%;
+}
+
+.bleed-image-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0 !important;
+  align-items: start;
+}
+
+.bleed-image-layout .content-container {
+  padding: 80px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bleed-image-side {
+  height: 720px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.table-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.table-layout th, .table-layout td {
+  padding: 24px;
+  text-align: left;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.table-layout th {
+  background: #1B3022;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+}
+
+.tiled-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.tile {
+  background: white;
+  padding: 30px;
+  border-bottom: 3px solid #C5A059;
+}
+
+.tile i {
+  font-size: 32px;
+  color: #1B3022;
+  margin-bottom: 20px;
+}
+
+.tile h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #1B3022;
+}
+
+.highlight-numbers-layout {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.highlight-numbers-layout .number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 180px;
+  color: #1B3022;
+  line-height: 1;
+}
+
+.highlight-numbers-layout .text-box {
+  border-left: 2px solid #C5A059;
+  padding-left: 40px;
+}
+
+.timeline-layout {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  height: 1px;
+  background: #C5A059;
+}
+
+.timeline-item {
+  width: 22%;
+  position: relative;
+  padding-top: 80px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: #1B3022;
+  border-radius: 50%;
+  border: 2px solid #FAF9F6;
+}
+
+.full-bg-image {
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+}
+
+.full-bg-image .overlay {
+  background-color: rgba(27, 48, 34, 0.4);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px;
+}
+
+.full-bg-image h2 { color: white; font-size: 80px; }
+.full-bg-image p { color: white; font-size: 26px; max-width: 800px; margin-top: 20px; font-style: italic; }
+
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slide1">
+    <div class="content-area title-layout">
+        <div class="subtitle">Brand Evolution</div>
+        <h1>Integrated Identity</h1>
+        <div style="width: 80px; height: 1px; background: #C5A059; margin: 40px auto;"></div>
+        <p style="font-size: 24px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: #1B3022;">Refining the FHA Monogram for Storybook Luxury</p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide2">
+    <div class="title-layout">
+        <h2 style="font-size: 72px;">Final Monogram Integration</h2>
+        <p class="subtitle" style="margin-top: 30px;">Concept 2: The Refined Vertex</p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">The Unified Monogram</h2>
+    <div class="content-area">
+        <div class="two-column rounded-image-layout">
+            <div>
+                <div class="image-wrapper">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/2131685964545433071" alt="Gold foil embossed monogram close up">
+                </div>
+            </div>
+            <div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 36px; color: #1B3022; margin-bottom: 20px;">Weaving F-H-A</h3>
+                <p>By shifting the letter 'A' to form the final column on the right, we achieve a balance that feels both ancient and cutting-edge. The "Concept 2" design ensures each letter is distinct yet interwoven.</p>
+                <ul style="list-style: none; padding: 0; margin-top: 30px;">
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-circle-check" style="color: #C5A059; margin-right: 15px;"></i> **Clarified Vertex:** Definitive sharp 'A' cap.</li>
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-circle-check" style="color: #C5A059; margin-right: 15px;"></i> **Gothic Balance:** Anchored by vertical H-structure.</li>
+                    <li style="margin-bottom: 15px;"><i class="fa-solid fa-circle-check" style="color: #C5A059; margin-right: 15px;"></i> **Material Ready:** Optimized for debossing and foil.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Dual Brand Archetypes</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #1B3022;">FHA (Luxury Sales)</h3>
+                <p><strong>Persona:</strong> The Architectural Curator.</p>
+                <p>Minimal, precise, and editorial. Utilizes "Concept 2" on high-polished brass and velvet-touch materials to signal exclusivity and discretion.</p>
+            </div>
+            <div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #1B3022;">FHRA (Heritage Leasing)</h3>
+                <p><strong>Persona:</strong> The Local Institution.</p>
+                <p>Rooted, historic, and detailed. Employs the fabricated station-style stencil typography to establish a "neighborhood-first" credibility.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container bleed-image-layout" id="slide5">
+    <div class="content-container">
+        <h2 class="slide-title" style="border-bottom: none; padding: 0;">Luxury Collateral</h2>
+        <p style="margin-top: 20px;">The business card execution utilizes a heavy, dark-green textured cardstock. The "Concept 2" monogram is debossed in gold foil, emphasizing the tactile quality of the brand.</p>
+        <div style="margin-top: 40px; padding: 30px; background: white; border-left: 2px solid #C5A059;">
+            <p style="font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 24px;">"Design is in the detail of the forge, not just the pixels on the screen."</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <img class="bleed-image-side" src="http://googleusercontent.com/image_collection/image_retrieval/8151103248542932273" alt="Forest green business card gold foil mockup">
+    </div>
+</div>
+
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Heritage Signage</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #1B3022;">The Forged Esthetic</h3>
+                <p>For FHRA, the "Heritage" aspect is brought to life through hammered iron and arched brackets. This environmental storytelling makes the brand feel like a permanent part of Forest Hills Gardens.</p>
+                <ul style="margin-top: 30px; list-style: none; padding: 0;">
+                    <li style="margin-bottom: 20px;"><strong style="color: #1B3022;">Material:</strong> Hammered Iron & Slate.</li>
+                    <li style="margin-bottom: 20px;"><strong style="color: #1B3022;">Typography:</strong> Station-style Stencil.</li>
+                    <li style="margin-bottom: 20px;"><strong style="color: #1B3022;">Presence:</strong> Institutional Authority.</li>
+                </ul>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/14418603317764286177" alt="Vintage iron hanging sign bracket">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Typographic System</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Brand Layer</th>
+                        <th>Typeface Selection</th>
+                        <th>Strategic Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Core Serif</strong></td>
+                        <td>Cormorant Garamond</td>
+                        <td>Editorial headlines, luxury FHA collateral, and magazine layouts.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Heritage Stencil</strong></td>
+                        <td>LIRR-Custom (FHRA)</td>
+                        <td>Station Square signage, yard signs, and local institution touchpoints.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Functional Sans</strong></td>
+                        <td>DM Sans</td>
+                        <td>Listing details, digital body text, and marketing copy for high-legibility.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accent Sans</strong></td>
+                        <td>Montserrat Light</td>
+                        <td>Upper-case subtitles and high-end technical markers.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Environmental Presence</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div style="text-align: center;">
+                <div class="image-wrapper" style="height: 300px; margin-bottom: 20px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/2158235699225296076" alt="Forest Hills Gardens Tudor architecture">
+                </div>
+                <p style="font-weight: bold; font-family: 'Cormorant Garamond', serif; font-size: 22px;">Neighborhood Context</p>
+            </div>
+            <div style="text-align: center;">
+                <div class="image-wrapper" style="height: 300px; margin-bottom: 20px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3633978563562916313" alt="Brass office plaque on brick">
+                </div>
+                <p style="font-weight: bold; font-family: 'Cormorant Garamond', serif; font-size: 22px;">Station Square Gateway</p>
+            </div>
+            <div style="text-align: center;">
+                <div class="image-wrapper" style="height: 300px; margin-bottom: 20px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/15914678428822638415" alt="Luxury office interior brass details">
+                </div>
+                <p style="font-weight: bold; font-family: 'Cormorant Garamond', serif; font-size: 22px;">Interior Materiality</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">The Institutional Impact</h2>
+    <div class="content-area">
+        <div class="highlight-numbers-layout">
+            <div class="number">92%</div>
+            <div class="text-box">
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #1B3022;">Estimated Consumer Trust</h3>
+                <p>By adopting the architectural "vernacular" of the Gardens, the brand gains an immediate perception of heritage. Residents and high-end buyers perceive the firm as a 100-year-old local authority rather than a modern startup.</p>
+                <p style="margin-top: 15px; color: #C5A059; font-weight: bold;">Institutional Authority Benchmark</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Implementation Strategy</h2>
+    <div class="content-area">
+        <div class="timeline-layout">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <h3 style="font-family: 'Cormorant Garamond', serif; color: #1B3022;">Q1: Refinement</h3>
+                <p>Finalize the Concept 2 vector suite and custom LIRR font weights.</p>
+            </div>
+            <div class="timeline-item">
+                <h3 style="font-family: 'Cormorant Garamond', serif; color: #1B3022;">Q2: Fabrication</h3>
+                <p>Install the brass station-plaques and hammered iron signage.</p>
+            </div>
+            <div class="timeline-item">
+                <h3 style="font-family: 'Cormorant Garamond', serif; color: #1B3022;">Q3: Collateral</h3>
+                <p>Launch the gold-foil stationary and luxury listing kits.</p>
+            </div>
+            <div class="timeline-item">
+                <h3 style="font-family: 'Cormorant Garamond', serif; color: #1B3022;">Q4: Deployment</h3>
+                <p>Full integration across Gardens digital and environmental channels.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container full-bg-image" id="slide11" style="background-image: url('http://googleusercontent.com/image_collection/image_retrieval/2158235699225296076');">
+    <div class="overlay">
+        <h2>Boutique Experience</h2>
+        <p>A neighborhood defined by beauty, balance, and belonging deserves an identity that reflects its craftsmanship.</p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide12">
+    <div class="content-area title-layout">
+        <div class="subtitle">Next Steps</div>
+        <h1>Any Questions?</h1>
+        <div style="width: 100px; height: 1px; background: #C5A059; margin: 40px auto;"></div>
+        <p style="font-size: 22px;">www.foresthillsadvisors.com | contact@foresthillsadvisors.com</p>
+        <p style="margin-top: 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px;">The Final Heritage Identity System</p>
+    </div>
+</div>
+
+</body>
+</html>
+
