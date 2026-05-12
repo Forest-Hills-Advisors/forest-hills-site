@@ -1,22 +1,801 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Forest Hills Advisors</title>
-<link rel="stylesheet" href="../Assets/css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forest Hills Advisors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a440;
+    --gold-light: #e2c87a;
+    --gold-pale: #f5edd6;
+    --black: #080808;
+    --off-black: #0e0e0e;
+    --dark-surface: #131313;
+    --green-dark: #0f2619;
+    --green-mid: #1a3d2b;
+    --cream: #f0ebe0;
+    --cream-muted: #b8b0a0;
+    --cream-dim: #6a6258;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', 'Optima', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(201,164,64,0.12);
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+  }
+
+  .nav-crest {
+    width: 38px;
+    height: 42px;
+    flex-shrink: 0;
+  }
+
+  .nav-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .nav-wordmark .brand-name {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--cream);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .nav-wordmark .brand-sub {
+    font-size: 9px;
+    letter-spacing: 0.38em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold) !important;
+    border: 1px solid rgba(201,164,64,0.45);
+    padding: 9px 20px;
+    transition: background 0.3s ease, color 0.3s ease !important;
+  }
+
+  .nav-cta:hover {
+    background: rgba(201,164,64,0.1) !important;
+    color: var(--gold-light) !important;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 56px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 40%, rgba(26,61,43,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 60% at 15% 70%, rgba(201,164,64,0.06) 0%, transparent 60%),
+      var(--black);
+    z-index: 0;
+  }
+
+  /* Vertical gold rule on left */
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 56px;
+    top: 140px;
+    bottom: 100px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,164,64,0.4) 20%, rgba(201,164,64,0.4) 80%, transparent);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    padding-left: 40px;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+  }
+
+  .hero-eyebrow span {
+    font-size: 9px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .eyebrow-line {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(52px, 7vw, 92px);
+    font-weight: 300;
+    line-height: 1.06;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.55s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--cream-muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 52px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.8s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 1s forwards;
+  }
+
+  .btn-primary {
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--black);
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 16px 36px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+
+  .btn-ghost {
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s ease;
+  }
+
+  .btn-ghost:hover { color: var(--cream); }
+
+  .btn-ghost svg { transition: transform 0.3s ease; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  /* ─── HERO METRICS BAR ─── */
+  .hero-metrics {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid rgba(201,164,64,0.2);
+    margin-top: 80px;
+    padding-top: 0;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.4s forwards;
+  }
+
+  .metric-item {
+    flex: 1;
+    padding: 28px 32px;
+    border-right: 1px solid rgba(201,164,64,0.12);
+  }
+
+  .metric-item:last-child { border-right: none; }
+  .metric-item:first-child { padding-left: 40px; }
+
+  .metric-num {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .metric-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    font-weight: 300;
+  }
+
+  /* ─── DIVIDER ─── */
+  .gold-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,164,64,0.35) 20%, rgba(201,164,64,0.35) 80%, transparent);
+  }
+
+  /* ─── ABOUT SECTION ─── */
+  .about {
+    padding: 120px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .section-tag {
+    font-size: 9px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.7;
+  }
+
+  .about-headline {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.5vw, 50px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+  }
+
+  .about-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .about-body {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--cream-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .about-body p + p { margin-top: 20px; }
+
+  /* ─── PILLARS ─── */
+  .pillars {
+    padding: 0 56px 120px;
+  }
+
+  .pillars-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .pillars-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid rgba(201,164,64,0.18);
+  }
+
+  .pillar {
+    padding: 52px 40px;
+    border-right: 1px solid rgba(201,164,64,0.18);
+    transition: background 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar:last-child { border-right: none; }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .pillar:hover::before { transform: scaleX(1); }
+  .pillar:hover { background: rgba(201,164,64,0.04); }
+
+  .pillar-num {
+    font-family: var(--serif);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .pillar-icon {
+    margin-bottom: 24px;
+    opacity: 0.55;
+  }
+
+  .pillar-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .pillar-desc {
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--cream-dim);
+    letter-spacing: 0.03em;
+    font-weight: 300;
+  }
+
+  /* ─── CLOSING / CTA ─── */
+  .closing {
+    padding: 120px 56px;
+    background: var(--dark-surface);
+    text-align: center;
+    border-top: 1px solid rgba(201,164,64,0.15);
+    position: relative;
+  }
+
+  .closing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 50% 50%, rgba(26,61,43,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .closing-content { position: relative; z-index: 1; }
+
+  .closing-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .closing-headline {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 68px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 24px;
+    letter-spacing: 0.01em;
+  }
+
+  .closing-headline em { font-style: italic; color: var(--gold-light); }
+
+  .closing-sub {
+    font-size: 13px;
+    color: var(--cream-muted);
+    letter-spacing: 0.06em;
+    line-height: 1.8;
+    max-width: 420px;
+    margin: 0 auto 52px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 36px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(180,170,155,0.35);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.32s; }
+  .reveal-delay-4 { transition-delay: 0.44s; }
+</style>
 </head>
-<body class="fha">
-  <header class="hero">
-    <h1>Forest Hills Advisors</h1>
-    <p class="tagline">Strategic Real Estate Advisory</p>
-  </header>
-  <section class="intro">
-    <p>
-      A refined approach to real estate advisory, combining institutional expertise 
-      with a bespoke client experience.
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- Replace img src with your actual logo path -->
+    <svg class="nav-crest" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Forest Hills Advisors Crest">
+      <!-- Shield shape -->
+      <path d="M19 2L4 8v14c0 9 7 15 15 18 8-3 15-9 15-18V8L19 2z" fill="#1a3d2b" stroke="#c9a440" stroke-width="1"/>
+      <!-- Fleur de lis top -->
+      <path d="M19 1.5C19 1.5 17.5 3 17.5 4.5S19 6 19 6s1.5-0.5 1.5-1.5S19 1.5 19 1.5z" fill="#c9a440"/>
+      <line x1="19" y1="6" x2="19" y2="8" stroke="#c9a440" stroke-width="1"/>
+      <!-- FHA monogram -->
+      <text x="19" y="25" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="11" fill="#c9a440" font-weight="500" letter-spacing="1">FHA</text>
+    </svg>
+    <div class="nav-wordmark">
+      <span class="brand-name">Forest Hills</span>
+      <span class="brand-sub">Advisors</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact" class="nav-cta">Private Inquiry</a></li>
+  </ul>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>Private Real Estate Advisors &ensp;&bull;&ensp; New York</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Where Proximity<br>
+      Becomes <em>Advantage.</em>
+    </h1>
+
+    <p class="hero-sub">
+      An advisory firm built for discerning clients — those who expect both
+      access and precision. We operate at the intersection of luxury real estate,
+      new development, and long-horizon strategic investment.
     </p>
-  </section>
-  <section class="cta">
-    <a href="mailto:info@foresthillsadvisors.com" class="button">Contact Us</a>
-  </section>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Schedule a Consultation</a>
+      <a href="#services" class="btn-ghost">
+        Our Approach
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+          <path d="M1 5h16M12 1l5 4-5 4" stroke="#b8b0a0" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-metrics">
+    <div class="metric-item">
+      <div class="metric-num">$2.4B+</div>
+      <div class="metric-label">Transaction Volume</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">18+</div>
+      <div class="metric-label">Years of Advisory</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">340+</div>
+      <div class="metric-label">Clients Served</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">100%</div>
+      <div class="metric-label">Discretion, Always</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-tag reveal">The Forest Hills Difference</div>
+    <h2 class="about-headline reveal reveal-delay-1">
+      Advisory without<br>compromise. <em>Results<br>without exception.</em>
+    </h2>
+  </div>
+  <div class="reveal reveal-delay-2">
+    <div class="about-body">
+      <p>
+        Forest Hills Advisors was founded on a singular belief: that exceptional real estate counsel
+        demands both institutional-grade rigor and a deeply personal touch. We don't simply
+        transact — we architect outcomes.
+      </p>
+      <p>
+        Our clients are founders, family offices, and established principals who require more than
+        a broker. They require a trusted partner — one who understands that the highest-value
+        decisions are made quietly, and with absolute conviction.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+
+<!-- PILLARS / SERVICES -->
+<section class="pillars" id="services">
+  <div class="pillars-header">
+    <div class="section-tag reveal" style="justify-content:center">
+      What We Do
+    </div>
+    <h2 class="pillars-title reveal reveal-delay-1">Four disciplines. One standard.</h2>
+  </div>
+
+  <div class="pillars-grid">
+    <div class="pillar reveal">
+      <div class="pillar-num">01</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="10" r="5" stroke="#c9a440" stroke-width="1"/>
+          <path d="M4 26c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#c9a440" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="pillar-title">High-Touch Client Experience</h3>
+      <p class="pillar-desc">
+        Every engagement is singular. A dedicated senior advisor guides you from introduction
+        through close — no hand-offs, no opacity.
+      </p>
+    </div>
+
+    <div class="pillar reveal reveal-delay-1">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect x="4" y="8" width="20" height="16" rx="1" stroke="#c9a440" stroke-width="1"/>
+          <path d="M9 8V6a5 5 0 0 1 10 0v2" stroke="#c9a440" stroke-width="1" stroke-linecap="round"/>
+          <path d="M14 15v4M12 17h4" stroke="#c9a440" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="pillar-title">Luxury &amp; High-End Sales</h3>
+      <p class="pillar-desc">
+        From trophy penthouses to private estates, we command the upper tier of the market
+        with discretion, positioning, and access others cannot offer.
+      </p>
+    </div>
+
+    <div class="pillar reveal reveal-delay-2">
+      <div class="pillar-num">03</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M4 24h20M7 24V14l7-6 7 6v10" stroke="#c9a440" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="11" y="18" width="6" height="6" stroke="#c9a440" stroke-width="1"/>
+        </svg>
+      </div>
+      <h3 class="pillar-title">New Development</h3>
+      <p class="pillar-desc">
+        Pre-construction advisory, developer relationships, and exclusive pre-market access
+        to the most anticipated projects in primary markets.
+      </p>
+    </div>
+
+    <div class="pillar reveal reveal-delay-3">
+      <div class="pillar-num">04</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M4 20l7-8 5 5 8-11" stroke="#c9a440" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="6" r="2" stroke="#c9a440" stroke-width="1"/>
+        </svg>
+      </div>
+      <h3 class="pillar-title">Strategic Investment Advisory</h3>
+      <p class="pillar-desc">
+        Portfolio-level real estate strategy for family offices and private investors —
+        structured for preservation, growth, and generational transfer.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- CLOSING CTA -->
+<section class="closing" id="contact">
+  <div class="closing-content">
+    <p class="closing-eyebrow reveal">Begin the Conversation</p>
+    <h2 class="closing-headline reveal reveal-delay-1">
+      The right introduction<br>changes <em>everything.</em>
+    </h2>
+    <p class="closing-sub reveal reveal-delay-2">
+      A private inquiry is the first step. Our engagements are by referral and
+      invitation — we look forward to understanding your objectives.
+    </p>
+    <div class="reveal reveal-delay-3">
+      <a href="mailto:inquiry@foresthillsadvisors.com" class="btn-primary">
+        Request a Private Introduction
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Forest Hills Advisors</div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Disclosures</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 Forest Hills Advisors. All rights reserved.</p>
+</footer>
+
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>

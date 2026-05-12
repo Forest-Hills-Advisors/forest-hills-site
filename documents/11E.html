@@ -3,169 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One West End, Unit 11E | Forest Hills Realty Advisors</title>
+    <title>One West End | 11E | Forest Hills Realty Advisors</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
-        .nav-link { position: relative; }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: currentColor;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
+        /* High Contrast Borders */
+        .thick-border { border-width: 3px; border-color: #000; }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-900">
+<body class="bg-white text-black">
 
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
-        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex flex-col">
-                <span class="serif text-xl tracking-tighter font-bold uppercase leading-none">Forest Hills</span>
-                <span class="text-[10px] uppercase tracking-[0.3em] text-stone-500 leading-none mt-1">Realty Advisors</span>
+    <nav class="fixed w-full z-50 bg-black text-white py-6">
+        <div class="container mx-auto px-10 flex justify-between items-center">
+            <div class="tracking-[0.5em] uppercase text-sm font-bold">
+                Forest Hills <span class="font-light text-stone-400">Realty Advisors</span>
             </div>
-            <div class="hidden md:flex space-x-10 text-xs uppercase tracking-widest font-medium">
-                <a href="#residence" class="nav-link">The Residence</a>
-                <a href="#amenities" class="nav-link">Amenities</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em]">
+                <a href="#residence" class="hover:text-stone-400 transition">The Residence</a>
+                <a href="#amenities" class="hover:text-stone-400 transition">Building Amenities</a>
+                <a href="#contact" class="hover:text-stone-400 transition">Inquire</a>
             </div>
-            <button class="md:hidden text-stone-900">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-            </button>
         </div>
     </nav>
 
-    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden border-b border-stone-200">
-        <img src="../assets/image/1WEA-bldg-photos/bldg entrance daytime.jpg" alt="One West End Entrance" class="absolute w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div class="relative z-10 text-center text-white px-4 mt-20">
-            <h1 class="text-6xl md:text-8xl mb-4 italic drop-shadow-lg">One West End</h1>
-            <p class="text-lg md:text-xl font-light tracking-[0.4em] uppercase drop-shadow-md text-stone-100">Unit 11E • Riverside Sanctuary</p>
+    <header class="relative h-screen bg-black flex items-center pt-20">
+        <div class="absolute inset-0 opacity-60">
+            <img src="../assets/image/1WEA-bldg-photos/bldg entrance daytime.jpg" alt="Pelli Clarke Pelli Architecture" class="w-full h-full object-cover">
         </div>
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="white" class="w-8 h-8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
+        <div class="relative z-10 container mx-auto px-10">
+            <h2 class="text-white text-xs uppercase tracking-[0.6em] mb-6">The Gateway to Riverside Center</h2>
+            <h1 class="text-white text-7xl md:text-9xl serif mb-8 leading-none">One <br><span class="italic">West End</span></h1>
+            <div class="w-32 h-1 bg-white mb-8"></div>
+            <p class="text-white text-xl max-w-lg font-light leading-relaxed">
+                Iconic architecture by Pelli Clarke Pelli meets visionary interiors by Jeffrey Beers. A new standard for the Manhattan skyline.
+            </p>
         </div>
     </header>
 
-    <section class="bg-stone-900 text-stone-100 py-8 sticky top-20 z-40">
-        <div class="container mx-auto px-6 flex flex-wrap justify-around items-center text-center gap-6">
-            <div class="flex flex-col">
-                <span class="text-[10px] uppercase tracking-widest text-stone-500 mb-1">Incentive</span>
-                <span class="text-sm md:text-lg font-semibold tracking-tight uppercase border-b border-stone-700 pb-1">Tax Abatement Until 2038</span>
+    <main id="residence" class="py-32">
+        <div class="container mx-auto px-10">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="thick-border p-2">
+                        <img src="../assets/image/1WEA-bldg-photos/Lobby.jpg" alt="Jeffrey Beers Interior" class="w-full h-[700px] object-cover">
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h3 class="text-5xl md:text-6xl serif italic mb-10">Meticulously <br>Crafted</h3>
+                    <div class="space-y-8 text-lg leading-relaxed">
+                        <p class="font-bold">Unit 11E: 1,067 SF of Refinement</p>
+                        <p class="text-stone-600">
+                            Thoughtful design elevates the way you live every day. From custom Scavolini kitchens featuring Vagli Fine Vein marble to bespoke residential features like custom bronze newspaper boxes, every detail brings a spirit of warmth and elegance.
+                        </p>
+                        <ul class="space-y-4 border-t border-black pt-8">
+                            <li class="flex justify-between uppercase text-xs tracking-widest font-bold"><span>Kitchen</span> <span>Scavolini / Wolf / Sub-Zero</span></li>
+                            <li class="flex justify-between uppercase text-xs tracking-widest font-bold"><span>Architecture</span> <span>Pelli Clarke Pelli</span></li>
+                            <li class="flex justify-between uppercase text-xs tracking-widest font-bold"><span>Interiors</span> <span>Jeffrey Beers International</span></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-col">
-                <span class="text-[10px] uppercase tracking-widest text-stone-500 mb-1">Residence</span>
-                <span class="text-sm md:text-lg font-semibold tracking-tight uppercase border-b border-stone-700 pb-1">1 Bed | 1.5 Bath | 1,067 SF</span>
+        </div>
+    </main>
+
+    <section id="amenities" class="bg-black text-white py-32">
+        <div class="container mx-auto px-10">
+            <div class="mb-20">
+                <h2 class="text-6xl serif italic">The Resort Experience</h2>
+                <div class="w-24 h-px bg-stone-500 mt-6"></div>
             </div>
-            <div class="flex flex-col">
-                <span class="text-[10px] uppercase tracking-widest text-stone-500 mb-1">Financials</span>
-                <span class="text-sm md:text-lg font-semibold tracking-tight uppercase border-b border-stone-700 pb-1">Low Common Charges</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="md:col-span-2 group overflow-hidden border border-stone-800">
+                    <img src="../assets/image/1WEA-bldg-photos/gym w. pool view.jpeg" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition duration-700" alt="75-Foot Pool">
+                    <div class="p-8 bg-black">
+                        <h4 class="serif text-3xl italic mb-2">75-Foot Atrium Pool</h4>
+                        <p class="text-stone-400 text-sm uppercase tracking-widest">Wellness & Vitality</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden border border-stone-800">
+                    <img src="../assets/image/1WEA-bldg-photos/Lounge w. fireplace.jpg" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition duration-700" alt="Lounge">
+                    <div class="p-8 bg-black">
+                        <h4 class="serif text-3xl italic mb-2">Resident Lounge</h4>
+                        <p class="text-stone-400 text-sm uppercase tracking-widest">Social Elegance</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden border border-stone-800">
+                    <img src="../assets/image/1WEA-bldg-photos/lounge w. outdoor deck view.jpeg" class="w-full h-[400px] object-cover grayscale hover:grayscale-0 transition duration-700" alt="Terrace">
+                    <div class="p-6">
+                        <h4 class="serif text-2xl mb-2 italic">12,000 SF Terrace</h4>
+                    </div>
+                </div>
+                <div class="md:col-span-2 group overflow-hidden border border-stone-800">
+                    <img src="../assets/image/1WEA-bldg-photos/lounge outdoor deck w. fireplace.jpeg" class="w-full h-[400px] object-cover grayscale hover:grayscale-0 transition duration-700" alt="Fireplace">
+                    <div class="p-6">
+                        <h4 class="serif text-2xl mb-2 italic">Al Fresco Cabanas</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <main id="residence" class="container mx-auto px-6 py-24 md:py-32">
-        <div class="grid md:grid-cols-12 gap-16 items-center mb-32">
-            <div class="md:col-span-5">
-                <h2 class="text-4xl md:text-5xl mb-10 leading-tight">A Symphony of <br><span class="italic font-normal">Light and Space</span></h2>
-                <div class="space-y-6 text-lg text-stone-600 leading-relaxed font-light">
-                    <p>
-                        Step inside this refined one-bedroom residence and discover 1,067 square feet of meticulously crafted luxury. Floor-to-ceiling windows bathe the space in natural light, while wide-plank walnut floors add warmth and elegance underfoot.
-                    </p>
-                    <p>
-                        The Scavolini creation by Jeffery Beers is a masterpiece of design, where warm light reflects off the Vagli Fine Vein marble backsplash and waterfall countertops. Unleash your inner chef with a professional-grade Wolf cooktop and Sub-Zero refrigeration.
-                    </p>
-                    <p class="italic serif text-stone-900 pt-4 text-xl">
-                        "This residence isn’t just stylish, it’s smart."
-                    </p>
-                </div>
-            </div>
-            <div class="md:col-span-7">
-                <div class="relative group">
-                    <div class="absolute -inset-4 bg-stone-200/50 -z-10 transition group-hover:bg-stone-200"></div>
-                    <img src="../assets/image/1WEA-bldg-photos/Lobby.jpg" alt="One West End Interior" class="w-full h-[600px] object-cover shadow-2xl">
-                </div>
-            </div>
+    <section id="contact" class="py-32 bg-white text-center">
+        <div class="container mx-auto px-10">
+            <h2 class="text-[10px] uppercase tracking-[1em] mb-10 text-stone-400">Request A Private Showing</h2>
+            <h3 class="text-6xl md:text-8xl serif italic mb-20">Live Boldly.</h3>
+            <a href="mailto:your-email@foresthillsadvisors.com" class="inline-block bg-black text-white px-20 py-8 uppercase tracking-[0.4em] text-xs font-bold hover:bg-stone-800 transition">
+                Secure Unit 11E
+            </a>
         </div>
+    </section>
 
-        <section id="amenities" class="py-20 border-t border-stone-200">
-            <div class="text-center max-w-2xl mx-auto mb-20">
-                <h2 class="text-4xl md:text-5xl mb-6 italic font-normal">The Resort-Inspired Haven</h2>
-                <p class="text-stone-500 uppercase tracking-[0.2em] text-sm font-semibold">Experience 5-Star Hotel Living</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[900px]">
-                <div class="md:col-span-2 md:row-span-2 overflow-hidden relative group">
-                    <img src="../assets/image/1WEA-bldg-photos/gym w. pool view.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Atrium Pool">
-                    <div class="absolute inset-0 bg-black/10 transition group-hover:bg-black/0"></div>
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <p class="text-xs uppercase tracking-widest mb-2">Wellness</p>
-                        <h4 class="serif text-2xl italic">75-Foot Atrium Pool</h4>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2 md:row-span-1 overflow-hidden relative group">
-                    <img src="../assets/image/1WEA-bldg-photos/lounge w. outdoor deck view.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Outdoor Terrace">
-                    <div class="absolute inset-0 bg-black/10 transition group-hover:bg-black/0"></div>
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <p class="text-xs uppercase tracking-widest mb-2">Entertainment</p>
-                        <h4 class="serif text-2xl italic">12,000 SF Terrace</h4>
-                    </div>
-                </div>
-
-                <div class="md:col-span-1 md:row-span-1 overflow-hidden relative group">
-                    <img src="../assets/image/1WEA-bldg-photos/lounge outdoor deck w. fireplace.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Evening Fireplace">
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h4 class="serif text-lg">Al Fresco Dining</h4>
-                    </div>
-                </div>
-
-                <div class="md:col-span-1 md:row-span-1 overflow-hidden relative group">
-                    <img src="../assets/image/1WEA-bldg-photos/Lounge w. fireplace.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Resident Lounge">
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h4 class="serif text-lg">Resident Living Room</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="mt-32 relative py-24 bg-stone-900 text-stone-100 overflow-hidden rounded-sm shadow-2xl">
-            <div class="relative z-10 text-center px-6">
-                <h3 class="text-4xl md:text-5xl mb-8 italic">Experience the Sanctuary</h3>
-                <p class="text-stone-400 mb-12 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-                    One West End elevates apartment living to an art form, offering a complete lifestyle experience that caters to your every desire.
-                </p>
-                <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-                    <a href="mailto:your-email@foresthillsadvisors.com" class="inline-block px-14 py-5 bg-white text-stone-900 uppercase tracking-widest text-xs font-bold hover:bg-stone-200 transition-colors">
-                        Request Private Showing
-                    </a>
-                    <a href="#" class="inline-block px-14 py-5 border border-stone-700 text-white uppercase tracking-widest text-xs font-bold hover:bg-stone-800 transition-colors">
-                        View Floor Plan
-                    </a>
-                </div>
-            </div>
-            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 border border-stone-800 rounded-full opacity-50"></div>
-        </section>
-    </main>
-
-    <footer class="py-16 text-center border-t border-stone-200">
-        <div class="mb-8">
-            <span class="serif text-2xl tracking-tighter font-bold uppercase block">Forest Hills</span>
-            <span class="text-xs uppercase tracking-[0.4em] text-stone-500 font-semibold">Realty Advisors</span>
+    <footer class="bg-black text-white py-20 border-t border-stone-900">
+        <div class="container mx-auto px-10 text-center">
+            <div class="serif text-3xl mb-4">Forest Hills <span class="italic font-light">Realty Advisors</span></div>
+            <p class="text-stone-600 text-[10px] uppercase tracking-widest">
+                Developed by Elad Group & Silverstein Properties | Architecture by Pelli Clarke Pelli
+            </p>
         </div>
-        <p class="text-stone-400 text-[10px] uppercase tracking-widest mb-2 font-medium">Lic. Real Estate Brokerage • New York City</p>
-        <p class="text-stone-400 text-[10px] uppercase tracking-widest font-medium">&copy; 2026 All Rights Reserved.</p>
     </footer>
 
 </body>
