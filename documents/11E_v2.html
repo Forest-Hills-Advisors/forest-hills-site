@@ -1,0 +1,65 @@
+<div class="container mx-auto px-6 lg:px-10 py-32">
+    <div class="flex flex-col lg:flex-row gap-12">
+        
+        <div class="lg:w-2/3">
+            <div class="relative group overflow-hidden border-2 border-[#D4AF37] p-1">
+                <img id="mainGallery" src="../assets/image/1WEA-bldg-photos/Lobby.jpg" class="w-full h-[600px] object-cover transition-opacity duration-500" alt="1 West End Unit 11E">
+                
+                <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-4 hover:bg-[#1B3022]">←</button>
+                <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-4 hover:bg-[#1B3022]">→</button>
+            </div>
+            <p class="mt-4 text-xs tracking-widest text-stone-500 uppercase">Architecture by Pelli Clarke Pelli</p>
+        </div>
+
+        <div class="lg:w-1/3">
+            <div class="sticky top-32 bg-[#1B3022] text-white p-8 border-l-4 border-[#D4AF37]">
+                <h2 class="serif text-4xl mb-2">Unit 11E</h2>
+                <p class="text-[#D4AF37] text-2xl mb-8 font-light">$1,980,000</p>
+                
+                <div class="space-y-6 border-t border-white/10 pt-6">
+                    <div class="flex justify-between text-sm uppercase tracking-tighter">
+                        <span class="text-stone-400">Monthly Common Charges</span>
+                        <span class="font-bold">$1,341</span>
+                    </div>
+                    <div class="flex justify-between text-sm uppercase tracking-tighter">
+                        <span class="text-stone-400">Monthly Taxes</span>
+                        <span class="font-bold">$67</span>
+                    </div>
+                    <div class="flex justify-between text-sm uppercase tracking-tighter border-t border-white/10 pt-4">
+                        <span class="text-[#D4AF37]">Buyer's Agent Commission</span>
+                        <span class="font-bold">2%</span>
+                    </div>
+                </div>
+
+                <a href="mailto:alex@foresthillsadvisors.com" class="mt-10 block w-full bg-[#D4AF37] text-[#1B3022] text-center py-5 uppercase text-xs font-bold tracking-[0.2em] hover:bg-white transition-colors">
+                    Schedule Private Showing
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Simple logic to swap images in your carousel
+    const images = [
+        "../assets/image/1WEA-bldg-photos/Lobby.jpg",
+        "../assets/image/1WEA-bldg-photos/gym w. pool view.jpeg",
+        "../assets/image/1WEA-bldg-photos/Lounge w. fireplace.jpg"
+    ];
+    let currentIndex = 0;
+
+    function updateGallery() {
+        document.getElementById('mainGallery').src = images[currentIndex];
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateGallery();
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateGallery();
+    }
+</script>
