@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Hills Advisors | Private New York Residential Advisory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Didot', 'Bodoni MT', 'Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        charcoal: '#0A0A0A',
+                        stone: '#171717',
+                        warmWhite: '#FCFCFA', // Brighter white for high contrast
+                        mutedWhite: '#F4F4F2',
+                        mutedGold: '#B89B72'
+                    },
+                    letterSpacing: {
+                        superWide: '0.25em',
+                        cinematic: '0.4em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Lenis Smooth Scroll */
+        html.lenis { height: auto; }
+        .lenis-smooth { scroll-behavior: auto !important; }
+        .lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis-stopped { overflow: hidden; }
+        ::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; background-color: #0A0A0A; color: #F4F4F2; }
+        .text-kern { font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        
+        /* Subtle wrought iron motif divider for the light section */
+        .iron-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(10,10,10,0.3), transparent);
+            position: relative;
+        }
+        .iron-divider::after {
+            content: '';
+            position: absolute;
+            top: -3px; left: 50%;
+            transform: translateX(-50%);
+            width: 7px; height: 7px;
+            background: #0A0A0A;
+            transform: rotate(45deg);
+        }
+
+        /* Video Wrapper for responsive iframes */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="text-kern overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 w-full z-50 px-8 py-6 md:px-16 md:py-10 flex justify-between items-center mix-blend-difference transition-all duration-700">
+        <a href="#home" class="font-serif text-lg md:text-xl tracking-superWide uppercase text-warmWhite hover:opacity-70 transition-opacity duration-500">
+            Forest Hills Advisors
+        </a>
+        <div class="hidden md:flex space-x-12 text-xs tracking-superWide uppercase text-warmWhite/80 font-sans">
+            <a href="#advisory" class="hover:text-warmWhite transition-colors">Private Advisory</a>
+            <a href="#neighborhoods" class="hover:text-warmWhite transition-colors">Neighborhoods</a>
+            <a href="#lincoln-square" class="hover:text-warmWhite transition-colors">Featured Portfolios</a>
+        </div>
+    </nav>
+
+    <section id="home" class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-charcoal">
+        <div class="absolute inset-0 w-full h-full z-0 pointer-events-none select-none overflow-hidden scale-105">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-40 brightness-[0.7] contrast-[1.2]">
+                <source src="https://player.vimeo.com/external/371433846.hd.mp4?s=236da2f3c0227e8d07e600fa3eb432d56a7c36a6&profile_id=175" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-charcoal/50"></div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-5xl px-6 flex flex-col items-center justify-center">
+            <h1 id="hero-title" class="font-serif text-4xl sm:text-6xl md:text-8xl tracking-wide leading-none mb-6 opacity-0 translate-y-12 text-warmWhite">
+                Forest Hills Advisors
+            </h1>
+            <div id="hero-divider" class="w-0 h-[1px] bg-warmWhite/40 mb-8 transition-all duration-1000"></div>
+            <p id="hero-subtitle" class="font-sans text-xs sm:text-sm tracking-cinematic uppercase text-warmWhite/80 space-y-3 opacity-0">
+                <span class="block">Private Advisory Platform</span>
+                <span class="block">Curated New York Real Estate Relationships</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="advisory" class="bg-warmWhite py-32 px-8 md:px-16 text-charcoal relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-24 text-center md:text-left">
+                <p class="font-sans text-[10px] tracking-superWide uppercase text-mutedGold mb-3">The Approach</p>
+                <h2 class="font-serif text-4xl md:text-6xl tracking-wide text-charcoal mb-12">Private Advisory</h2>
+                <p class="font-sans text-sm md:text-base max-w-2xl text-charcoal/70 leading-relaxed font-light">
+                    A discrete advisory platform for luxury residential development, neighborhood intelligence, and curated New York real estate relationships. We do not broker. We curate architecture and safeguard capital.
+                </p>
+            </div>
+
+            <div class="space-y-32">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-6 overflow-hidden aspect-[4/3] bg-mutedWhite relative group">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Development Advisory" class="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000">
+                    </div>
+                    <div class="md:col-span-5 md:col-start-8 space-y-6">
+                        <h3 class="font-serif text-3xl text-charcoal">Development Advisory</h3>
+                        <div class="iron-divider my-4"></div>
+                        <p class="font-sans text-sm text-charcoal/70 leading-relaxed font-light">
+                            Collaborating with developers from site acquisition to architectural program finalization. Refining structural narratives and market positioning prior to public exposure.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-5 md:order-1 space-y-6">
+                        <h3 class="font-serif text-3xl text-charcoal">Neighborhood Intelligence</h3>
+                        <div class="iron-divider my-4"></div>
+                        <p class="font-sans text-sm text-charcoal/70 leading-relaxed font-light">
+                            Mapping micro-market movement, zoning evolutions, and cultural capital shifts across Manhattan's elite corridors and Queens' historic enclaves.
+                        </p>
+                    </div>
+                    <div class="md:col-span-6 md:col-start-7 md:order-2 overflow-hidden aspect-[4/3] bg-mutedWhite relative group">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80" alt="Neighborhood Intelligence" class="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="neighborhoods" class="bg-charcoal py-32 px-8 md:px-16 text-warmWhite">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-24 flex flex-col md:flex-row justify-between items-start md:items-end">
+                <div>
+                    <p class="font-sans text-[10px] tracking-superWide uppercase text-mutedGold mb-3">Territories</p>
+                    <h2 class="font-serif text-4xl md:text-5xl tracking-wide">Neighborhoods</h2>
+                </div>
+                <p class="font-sans text-xs text-warmWhite/50 max-w-sm mt-6 md:mt-0 leading-relaxed">
+                    Exploring ultra-luxury infill, master-planned expansions, and emerging architectural milestones.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="#lincoln-square" class="group relative aspect-[3/4] overflow-hidden bg-stone block">
+                    <img src="https://images.unsplash.com/photo-1534430480872-3498386e7a69?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60 grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent"></div>
+                    <h4 class="absolute bottom-6 left-6 font-serif text-xl tracking-wide">Lincoln Square</h4>
+                </a>
+                <a href="#midtown-west" class="group relative aspect-[3/4] overflow-hidden bg-stone block">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60 grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent"></div>
+                    <h4 class="absolute bottom-6 left-6 font-serif text-xl tracking-wide">Midtown West</h4>
+                </a>
+                <div class="group relative aspect-[3/4] overflow-hidden bg-stone cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1560942485-b2a11cc13456?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60 grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent"></div>
+                    <h4 class="absolute bottom-6 left-6 font-serif text-xl tracking-wide">Hudson Yards</h4>
+                </div>
+                <div class="group relative aspect-[3/4] overflow-hidden bg-stone cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-60 grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent"></div>
+                    <h4 class="absolute bottom-6 left-6 font-serif text-xl tracking-wide">Midtown East</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lincoln-square" class="bg-stone py-32 px-8 md:px-16 border-t border-charcoal">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20 text-center">
+                <h2 class="font-serif text-5xl tracking-wide text-warmWhite mb-6">Lincoln Square</h2>
+                <p class="font-sans text-sm text-warmWhite/60 max-w-3xl mx-auto leading-relaxed font-light">
+                    The southern tail of the Upper West Side saw major luxury infill, particularly along the West End Avenue/Riverside corridor and right off Columbus Circle.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-32">
+                <div class="overflow-hidden bg-charcoal aspect-video group relative">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="50 West 66th Street" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-1000">
+                </div>
+                <div class="space-y-6">
+                    <span class="font-sans text-[10px] tracking-widest text-mutedGold uppercase">Extell / Snøhetta</span>
+                    <h3 class="font-serif text-3xl text-warmWhite">50 West 66th Street</h3>
+                    <p class="font-sans text-sm text-warmWhite/60 leading-relaxed font-light">
+                        A massive architectural addition to the neighborhood, featuring ultra-luxury condominiums just a block from Central Park and Lincoln Center.
+                    </p>
+                    <a href="https://www.snohetta.com/projects/50-west-66th-street" target="_blank" class="inline-block font-sans text-[11px] tracking-superWide uppercase text-warmWhite hover:text-mutedGold border-b border-warmWhite/30 pb-2 mt-4 transition-colors">
+                        Explore Development
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-32">
+                <div class="space-y-6 lg:order-1 order-2">
+                    <span class="font-sans text-[10px] tracking-widest text-mutedGold uppercase">Master-Planned Expansion</span>
+                    <h3 class="font-serif text-3xl text-warmWhite">1 West End Avenue</h3>
+                    <p class="font-sans text-sm text-warmWhite/60 leading-relaxed font-light">
+                        Anchoring the southern tip of the neighborhood's modern master-planned expansion. A full-service luxury tower setting the precedent for contemporary Riverside living, heavily featuring tailored architectural precision and premium assets like the curated Residence 11E.
+                    </p>
+                </div>
+                <div class="overflow-hidden bg-charcoal aspect-video group relative lg:order-2 order-1">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80" alt="1 West End Avenue" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-1000">
+                </div>
+            </div>
+
+            <div class="mb-16">
+                <div class="text-center mb-12">
+                    <span class="font-sans text-[10px] tracking-widest text-mutedGold uppercase">Waterfront Master Plan</span>
+                    <h3 class="font-serif text-4xl text-warmWhite mt-4">Waterline Square</h3>
+                    <p class="font-sans text-sm text-warmWhite/60 max-w-2xl mx-auto leading-relaxed font-light mt-4">
+                        Part of the massive mega-development waterfront master plan that finalized its luxury condo phases in the 2019–2020 window.
+                    </p>
+                </div>
+                
+                <div class="w-full mb-12 video-container rounded-sm shadow-2xl">
+                    <iframe src="https://www.youtube.com/embed/0YTExEMNt3Q?autoplay=1&mute=1&loop=1&playlist=0YTExEMNt3Q&controls=0&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="font-serif text-lg text-warmWhite text-center">One Waterline</h4>
+                        <div class="video-container rounded-sm">
+                            <iframe src="https://www.youtube.com/embed/XyEDDZIj3po?rel=0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-serif text-lg text-warmWhite text-center">Two Waterline</h4>
+                        <div class="video-container rounded-sm">
+                            <iframe src="https://www.youtube.com/embed/rmaEYZzUEjM?rel=0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-serif text-lg text-warmWhite text-center">Three Waterline</h4>
+                        <div class="video-container rounded-sm">
+                            <iframe src="https://www.youtube.com/embed/Px3iUwUqVWY?rel=0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="midtown-west" class="bg-charcoal py-32 px-8 md:px-16">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="font-serif text-5xl tracking-wide text-warmWhite mb-6">Midtown West</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7 overflow-hidden aspect-[4/5] bg-stone group relative">
+                    <img src="https://images.unsplash.com/photo-1582283088279-05230d47d404?auto=format&fit=crop&w=1200&q=80" alt="611 West 56th Street" class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-all duration-1000 grayscale">
+                    <div class="absolute inset-0 bg-charcoal/20"></div>
+                </div>
+                <div class="md:col-span-5 space-y-6">
+                    <span class="font-sans text-[10px] tracking-widest text-mutedGold uppercase">The Limestone Masterpiece</span>
+                    <h3 class="font-serif text-4xl text-warmWhite font-light">611 West 56th Street</h3>
+                    <p class="font-sans text-sm text-warmWhite/60 leading-relaxed font-light">
+                        Sitting at 823 11th Avenue, this bright monolithic tower is wrapped in four sides of premium Perla Bianca limestone. 
+                    </p>
+                    <p class="font-sans text-sm text-warmWhite/60 leading-relaxed font-light">
+                        It represents a major architectural milestone as the first and only building in the U.S. designed by Pritzker Prize-winning master architect Álvaro Siza. Offering extreme exclusivity, including the highly-publicized full-floor trophy layout, Residence 11.
+                    </p>
+                    <div class="pt-4">
+                        <a href="https://sieberinternational.com/project/611-west-nyc/" target="_blank" class="inline-block font-sans text-[11px] tracking-superWide uppercase text-charcoal bg-warmWhite px-8 py-4 hover:bg-mutedGold hover:text-warmWhite transition-all duration-300">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-charcoal border-t border-stone py-12 px-8 text-center text-warmWhite/30 font-sans text-xs">
+        <p class="font-serif tracking-widest text-warmWhite uppercase text-sm mb-2">Forest Hills Advisors</p>
+        <p class="mb-6">Curated New York Real Estate Relationships</p>
+        <p>&copy; 2026 Forest Hills Advisors LLC. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+            lenis.on('scroll', ScrollTrigger.update);
+
+            // Hero Animation
+            const tl = gsap.timeline();
+            tl.to("#hero-title", { opacity: 1, y: 0, duration: 1.5, ease: "power4.out" })
+              .to("#hero-divider", { width: "120px", duration: 1, ease: "power2.inOut" }, "-=0.8")
+              .to("#hero-subtitle", { opacity: 1, duration: 1.2, ease: "power3.out" }, "-=0.4");
+        });
+    </script>
+</body>
+</html>

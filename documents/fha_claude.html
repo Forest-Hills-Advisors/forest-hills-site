@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forest Hills Advisors | New York Residential Advisory</title>
+<meta name="description" content="Forest Hills Advisors — New York's premier residential advisory. Curated development intelligence for discerning buyers.">
+
+<!-- FONTS: Cormorant Garamond (display/editorial) + DM Sans (UI/body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<!-- GSAP + ScrollTrigger for cinematic scroll animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* ==============================================
+   DESIGN SYSTEM — CSS CUSTOM PROPERTIES
+   All brand colors, spacing, and motion are
+   controlled from this single source of truth.
+============================================== */
+:root {
+  /* Core palette */
+  --black:          #050505;
+  --charcoal:       #0D0D0D;
+  --charcoal-mid:   #161616;
+  --charcoal-light: #222222;
+  --warm-white:     #F0EBE1;
+  --stone-light:    #C4BEB4;
+  --stone:          #857F78;
+  --stone-dark:     #45423E;
+
+  /* Gold — thick, warm, never bleeding */
+  --gold:           #C8A84B;
+  --gold-light:     #E2CFA0;
+  --gold-pale:      #F0E8D0;
+  --gold-dark:      #9A7B2C;
+  --gold-glow:      rgba(200, 168, 75, 0.12);
+
+  /* Forest green accents */
+  --green-deep:     #090F0B;
+  --green-forest:   #182E20;
+  --green-sage:     #2C5438;
+
+  /* Typography */
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'DM Sans', -apple-system, sans-serif;
+
+  /* Spacing — fluid, responds to viewport */
+  --vpad:   clamp(80px, 11vw, 160px);
+  --hpad:   clamp(24px, 5vw, 100px);
+
+  /* Motion curves */
+  --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-sharp:  cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==============================================
+   RESET & BASE
+============================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--black);
+  color: var(--warm-white);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ==============================================
+   GRAIN TEXTURE
+   SVG fractal noise rendered via data URI.
+   Fixed overlay, pointer-events off.
+   Opacity 0.04 = visible without being harsh.
+   This adds the "Dreamweaver depth" texture.
+============================================== */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ==============================================
+   CUSTOM CURSOR
+   Gold 6px dot — follows mouse immediately.
+   36px ring — follows with eased lag via rAF.
+   Hidden on mobile (cursor: auto restores).
+============================================== */
+.cur-dot {
+  position: fixed;
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .3s var(--ease), height .3s var(--ease), opacity .3s ease;
+}
+.cur-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(200, 168, 75, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform .25s var(--ease), border-color .3s ease, width .3s var(--ease), height .3s var(--ease);
+}
+.cur-ring.hovered {
+  width: 60px; height: 60px;
+  border-color: var(--gold);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ==============================================
+   NAVIGATION
+   Fixed, full-width. Transparent at top.
+   On scroll > 80px: gains dark glass + gold border.
+============================================== */
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36px var(--hpad);
+  transition: padding .5s var(--ease), background .5s ease, border-color .5s ease, backdrop-filter .5s ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  padding: 22px var(--hpad);
+  background: rgba(5, 5, 5, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: rgba(200, 168, 75, 0.12);
+}
+.nav__logo {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--warm-white);
+  line-height: 1;
+}
+.nav__logo em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.nav__links {
+  display: flex;
+  gap: 48px;
+}
+.nav__links a {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--stone-light);
+  transition: color .3s ease;
+  position: relative;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 100%;
+  height: 1px;
+  background: var(--gold);
+  transition: right .4s var(--ease);
+}
+.nav__links a:hover { color: var(--warm-white); }
+.nav__links a:hover::after { right: 0; }
+.nav__cta {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(200, 168, 75, 0.45);
+  padding: 11px 26px;
+  transition: background .4s var(--ease), color .4s ease, border-color .4s ease;
+}
+.nav__cta:hover {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+
+/* ==============================================
+   HERO SECTION
+   100vh full-bleed. Video/image background.
+   Multi-layer gradient overlay for depth.
+   Content anchored bottom-left — editorial.
+============================================== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 680px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--hpad) clamp(60px, 9vh, 130px);
+  overflow: hidden;
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+/* VIDEO — drop assets/video/hero.mp4 to activate.
+   poster= shows a still frame while video loads.
+   playsinline is REQUIRED for iOS Safari autoplay. */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* FALLBACK poster image shown if no video file */
+.hero__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 70%;
+}
+/* Layered gradient: bottom dark, top medium, no flat black ceiling */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top,    rgba(5,5,5,.92) 0%,  rgba(5,5,5,.25) 55%, rgba(5,5,5,.55) 100%),
+    linear-gradient(to right,  rgba(5,5,5,.45) 0%,  transparent 65%);
+}
+.hero__content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+/* Eyebrow — gold micro-caps, revealed first */
+.hero__eyebrow {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .58em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(18px);
+}
+/* Main title — Cormorant 700, gold, no halo bleeding.
+   text-shadow adds subtle warmth + depth, not glow. */
+.hero__title {
+  font-family: var(--serif);
+  font-size: clamp(72px, 12.5vw, 210px);
+  font-weight: 700;
+  line-height: .88;
+  letter-spacing: -.02em;
+  color: var(--gold);
+  text-shadow:
+    0 2px 0   rgba(110, 80, 15, .3),
+    0 0 80px  rgba(200, 168, 75, .06);
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(28px);
+}
+/* Italic subtitle line — lighter weight, warm white */
+.hero__title em {
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  font-size: .8em;
+  color: var(--warm-white);
+  letter-spacing: .01em;
+}
+.hero__sub {
+  font-size: clamp(10px, 1.1vw, 13px);
+  font-weight: 300;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--stone-light);
+  opacity: 0;
+  transform: translateY(16px);
+}
+/* Animated scroll indicator — bottom right of hero */
+.hero__scroll {
+  position: absolute;
+  right: var(--hpad);
+  bottom: clamp(60px, 9vh, 130px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+}
+.hero__scroll span {
+  font-size: 8px;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--stone);
+  writing-mode: vertical-rl;
+}
+/* Animated downward growing gold line */
+.hero__scroll-line {
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollGrow 2.2s var(--ease) 1.6s infinite;
+  height: 0;
+}
+@keyframes scrollGrow {
+  0%   { height: 0;    opacity: 1; transform: none; }
+  60%  { height: 72px; opacity: 1; transform: none; }
+  100% { height: 72px; opacity: 0; transform: translateY(18px); }
+}
+
+/* ==============================================
+   MARQUEE STRIP
+   Infinite horizontal ticker of development names.
+   Two identical track copies = seamless loop.
+   animation-duration: 32s = comfortable reading pace.
+============================================== */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid rgba(200, 168, 75, .18);
+  border-bottom: 1px solid rgba(200, 168, 75, .18);
+  background: var(--charcoal);
+  padding: 16px 0;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+.marquee__track:hover { animation-play-state: paused; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee__seg {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.marquee__text {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--stone);
+  padding: 0 28px;
+  transition: color .3s ease;
+}
+.marquee__text:hover { color: var(--gold); }
+.marquee__sep {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: .5;
+  flex-shrink: 0;
+}
+
+/* ==============================================
+   SHARED SECTION UTILITIES
+============================================== */
+.section { padding: var(--vpad) var(--hpad); }
+.section--dark  { background: var(--charcoal); }
+.section--green { background: var(--green-deep); }
+
+/* Overline — small gold all-caps label above headings */
+.overline {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .52em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+/* Gold rule — decorative horizontal line */
+.gold-rule {
+  width: 48px; height: 1px;
+  background: var(--gold);
+}
+.gold-rule--center { margin: 32px auto; }
+.gold-rule--v { margin: 32px 0; }
+
+/* Section heading — large serif display */
+.h-display {
+  font-family: var(--serif);
+  font-size: clamp(46px, 6vw, 96px);
+  font-weight: 400;
+  line-height: 1.0;
+  color: var(--warm-white);
+  letter-spacing: -.01em;
+}
+.h-display em { font-style: italic; font-weight: 300; }
+.h-display--gold {
+  color: var(--gold);
+  text-shadow: 0 0 60px rgba(200, 168, 75, .05);
+}
+
+/* ==============================================
+   SCROLL REVEAL
+   Elements start hidden. IntersectionObserver
+   adds .in-view class when they enter viewport.
+   Stagger siblings with --delay custom property.
+============================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(38px);
+  transition:
+    opacity  1.1s var(--ease),
+    transform 1.25s var(--ease);
+  transition-delay: var(--delay, 0s);
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+/* ==============================================
+   MANIFESTO SECTION
+   Centered editorial statement.
+   Top gold line descends from top border.
+============================================== */
+.manifesto {
+  padding: var(--vpad) var(--hpad);
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.manifesto::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 72px;
+  background: linear-gradient(to bottom, transparent, var(--gold-dark));
+}
+.manifesto__quote {
+  font-family: var(--serif);
+  font-size: clamp(26px, 4vw, 66px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.32;
+  color: var(--warm-white);
+  max-width: 880px;
+  letter-spacing: -.01em;
+}
+.manifesto__quote strong {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--gold);
+  /* Thick gold in italic serif context — stands out cleanly */
+  text-shadow: 0 1px 0 rgba(100, 75, 10, .25);
+}
+.manifesto__caption {
+  font-size: 10px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: 52px;
+}
+
+/* ==============================================
+   DEVELOPMENTS GRID
+   Left: one tall editorial card spanning 2 rows.
+   Right: two stacked shorter cards.
+   2px gap = architectural hairline separation.
+============================================== */
+.devs { background: var(--black); }
+.devs__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+}
+.devs__view-all {
+  font-size: 10px;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(200, 168, 75, .4);
+  padding-bottom: 4px;
+  transition: border-color .3s ease, color .3s ease;
+}
+.devs__view-all:hover { color: var(--gold-light); border-color: var(--gold); }
+.dev-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+}
+.dev-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  cursor: none;
+}
+/* First card spans both rows — tall cinematic format */
+.dev-card:first-child {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+.dev-card__img {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease);
+  display: block;
+}
+.dev-card:first-child .dev-card__img { min-height: 680px; }
+/* Placeholder for cards without real images yet */
+.dev-card__placeholder {
+  width: 100%; min-height: 340px;
+  display: flex; align-items: flex-end;
+}
+.dev-card:hover .dev-card__img { transform: scale(1.04); }
+.dev-card__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,5,5,.92) 0%, rgba(5,5,5,.15) 55%, transparent 100%);
+  transition: background .6s ease;
+}
+.dev-card:hover .dev-card__overlay {
+  background: linear-gradient(to top, rgba(5,5,5,.97) 0%, rgba(5,5,5,.4) 60%, rgba(5,5,5,.1) 100%);
+}
+.dev-card__content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 36px 30px;
+  transform: translateY(6px);
+  transition: transform .55s var(--ease);
+}
+.dev-card:hover .dev-card__content { transform: none; }
+.dev-card__loc {
+  font-size: 9px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: block;
+}
+.dev-card__name {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 44px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--warm-white);
+  margin-bottom: 14px;
+}
+.dev-card__cta {
+  font-size: 9px;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .4s ease .1s, transform .5s var(--ease) .1s;
+  display: block;
+}
+.dev-card:hover .dev-card__cta { opacity: 1; transform: none; }
+
+/* ==============================================
+   NEIGHBORHOODS GRID (Sieber-style)
+   3 columns × 2 rows. 2px gap hairlines.
+   Hover: image darkens + zooms, green tint fades in,
+          name turns gold-light, sub-text reveals.
+============================================== */
+.hoods { background: var(--charcoal); }
+.hoods__intro {
+  max-width: 480px;
+  margin-bottom: 60px;
+}
+.hoods__body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--stone-light);
+  margin-top: 24px;
+  font-weight: 300;
+}
+.hood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.hood-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: clamp(220px, 28vw, 440px);
+  cursor: none;
+}
+.hood-card__img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s var(--ease), filter .8s ease;
+  filter: brightness(.72) saturate(.85);
+}
+.hood-card:hover .hood-card__img {
+  transform: scale(1.07);
+  filter: brightness(.45) saturate(.7);
+}
+/* Base gradient overlay */
+.hood-card__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,5,5,.8) 0%, transparent 55%);
+}
+/* Green brand tint — fades in on hover */
+.hood-card__tint {
+  position: absolute; inset: 0;
+  background: rgba(24, 46, 32, .55);
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+.hood-card:hover .hood-card__tint { opacity: 1; }
+/* Gold left border accent on hover */
+.hood-card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 15%; bottom: 15%;
+  width: 2px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform .5s var(--ease) .1s;
+}
+.hood-card:hover::after { transform: scaleY(1); }
+.hood-card__content {
+  position: absolute;
+  bottom: 28px; left: 28px;
+  z-index: 10;
+}
+.hood-card__name {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.3vw, 32px);
+  font-weight: 500;
+  color: var(--warm-white);
+  line-height: 1.1;
+  transition: color .4s ease;
+}
+.hood-card:hover .hood-card__name { color: var(--gold-light); }
+.hood-card__arrow {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .4s ease .12s, transform .5s var(--ease) .12s;
+}
+.hood-card:hover .hood-card__arrow { opacity: 1; transform: none; }
+
+/* ==============================================
+   ADVISORY SECTION
+   Two-column: text left, image right.
+   Decorative gold frame + green corner accent.
+============================================== */
+.advisory { background: var(--black); }
+.advisory__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(60px, 8vw, 120px);
+  align-items: center;
+}
+.advisory__body {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--stone-light);
+  font-weight: 300;
+  margin-top: 30px;
+}
+/* List of advisory services */
+.advisory__services {
+  margin-top: 48px;
+  border-top: 1px solid rgba(200, 168, 75, .14);
+}
+.advisory__services li {
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--stone-light);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: color .3s ease, gap .3s var(--ease);
+}
+.advisory__services li:hover { color: var(--warm-white); gap: 26px; }
+.advisory__services li::before {
+  content: '';
+  width: 22px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+  transition: width .3s var(--ease);
+}
+.advisory__services li:hover::before { width: 30px; }
+/* Image column with decorative frame */
+.advisory__img-wrap { position: relative; }
+.advisory__img {
+  width: 100%;
+  height: clamp(380px, 50vw, 680px);
+  object-fit: cover;
+  display: block;
+}
+/* Gold frame */
+.advisory__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border: 1px solid rgba(200, 168, 75, .18);
+  pointer-events: none;
+}
+/* Green corner block — brand signature */
+.advisory__img-wrap::before {
+  content: '';
+  position: absolute;
+  bottom: -14px; right: -14px;
+  width: 38%; height: 38%;
+  background: var(--green-forest);
+  z-index: -1;
+}
+
+/* ==============================================
+   STATS BAR
+   4 numbers across a gold-bordered strip.
+   Font: Cormorant 300 — elegant numerals.
+============================================== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(200, 168, 75, .14);
+  border-bottom: 1px solid rgba(200, 168, 75, .14);
+  margin-top: clamp(80px, 10vw, 140px);
+}
+.stat {
+  padding: 44px 28px;
+  text-align: center;
+  border-right: 1px solid rgba(200, 168, 75, .14);
+}
+.stat:last-child { border-right: none; }
+.stat__num {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 68px);
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 12px;
+}
+.stat__label {
+  font-size: 9px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ==============================================
+   EXCLUSIVE LISTING BANNER
+   Deep green BG. Full width. Price highlight.
+   Links to One West End 11E exclusive page.
+============================================== */
+.exclusive {
+  background: var(--green-deep);
+  border-top: 1px solid rgba(200, 168, 75, .14);
+  border-bottom: 1px solid rgba(200, 168, 75, .14);
+  padding: 72px var(--hpad);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+.exclusive__label {
+  font-size: 9px;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+  display: block;
+}
+.exclusive__heading {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.8vw, 60px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--warm-white);
+  line-height: 1.15;
+}
+.exclusive__price {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 1px 0 rgba(100, 75, 10, .2);
+}
+
+/* ==============================================
+   CTA BUTTON — Gold outline
+   Shared across site.
+============================================== */
+.btn-gold {
+  display: inline-block;
+  padding: 18px 46px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: background .4s var(--ease), color .4s ease;
+  white-space: nowrap;
+}
+.btn-gold:hover { background: var(--gold); color: var(--black); }
+
+/* ==============================================
+   CONTACT SECTION
+   Huge "FHA" watermark creates subtle texture.
+   Centered editorial layout.
+============================================== */
+.contact {
+  background: var(--black);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Oversized brand watermark — texture, not text */
+.contact::before {
+  content: 'FHA';
+  position: absolute;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 32vw;
+  color: rgba(200, 168, 75, .025);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: -.05em;
+  line-height: 1;
+}
+.contact__inner { position: relative; z-index: 10; }
+.contact__title {
+  font-family: var(--serif);
+  font-size: clamp(44px, 8vw, 138px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1;
+  color: var(--warm-white);
+  margin-bottom: 22px;
+}
+.contact__sub {
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 56px;
+}
+.contact__agent {
+  margin-top: 56px;
+  font-size: 11px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--stone);
+  line-height: 2.2;
+}
+.contact__agent a { color: var(--gold); transition: color .3s ease; }
+.contact__agent a:hover { color: var(--gold-light); }
+
+/* ==============================================
+   FOOTER
+============================================== */
+footer {
+  background: var(--charcoal);
+  padding: 52px var(--hpad);
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+}
+.footer__logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .2em;
+}
+.footer__logo em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.footer__links {
+  display: flex; gap: 36px;
+}
+.footer__links a {
+  font-size: 9px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--stone);
+  transition: color .3s ease;
+}
+.footer__links a:hover { color: var(--warm-white); }
+.footer__legal {
+  font-size: 9px;
+  color: var(--stone-dark);
+  letter-spacing: .1em;
+  text-align: center;
+}
+
+/* ==============================================
+   RESPONSIVE
+   Mobile-first adjustments.
+   Cursor hidden — restored to system default.
+============================================== */
+@media (max-width: 900px) {
+  body { cursor: auto; }
+  .cur-dot, .cur-ring { display: none; }
+  .nav__links { display: none; }
+  .nav__cta { font-size: 8px; padding: 9px 18px; }
+  .dev-grid { grid-template-columns: 1fr; }
+  .dev-card:first-child { grid-row: auto; }
+  .dev-card:first-child .dev-card__img { min-height: 420px; }
+  .hood-grid { grid-template-columns: 1fr 1fr; }
+  .advisory__inner { grid-template-columns: 1fr; }
+  .advisory__img-wrap::after,
+  .advisory__img-wrap::before { display: none; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .exclusive { flex-direction: column; text-align: center; }
+  .footer__inner { flex-direction: column; gap: 28px; text-align: center; }
+  .footer__links { flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 580px) {
+  .hood-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .devs__header { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- GRAIN TEXTURE — fixed, pointer-events:none, z-index 9000 -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- CUSTOM CURSOR — gold dot + lagging ring -->
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- ============================================
+     NAVIGATION
+============================================ -->
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav__logo">Forest Hills <em>Advisors</em></a>
+  <ul class="nav__links">
+    <li><a href="/advisory.html">Advisory</a></li>
+    <li><a href="/neighborhoods.html">Developments</a></li>
+    <li><a href="/neighborhoods.html">Neighborhoods</a></li>
+  </ul>
+  <a href="#contact" class="nav__cta">Private Inquiry</a>
+</nav>
+
+<!-- ============================================
+     HERO SECTION
+     Video background + massive gold typography.
+     
+     TO ACTIVATE VIDEO:
+     Place your Manhattan cinematic video file at:
+       assets/video/hero.mp4
+     The browser will autoplay it muted immediately.
+     The poster image shows while video loads.
+============================================ -->
+<header class="hero">
+  <div class="hero__media">
+    <video class="hero__video"
+           autoplay muted loop playsinline
+           poster="assets/images/hero-poster.jpg">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
+    <!-- Fallback image (shown when no video file exists) -->
+    <img class="hero__poster"
+         src="exclusive/assets/images/one-west-end-v2/one-west-end.webp"
+         alt="One West End, Manhattan"
+         loading="eager">
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="hero__content">
+    <span class="hero__eyebrow" id="heroEyebrow">
+      New York &nbsp;·&nbsp; Residential Advisory &nbsp;·&nbsp; Est. 2024
+    </span>
+    <h1 class="hero__title" id="heroTitle">
+      Forest Hills
+      <em>Advisors</em>
+    </h1>
+    <p class="hero__sub" id="heroSub">
+      Curated Development Intelligence
+    </p>
+  </div>
+
+  <div class="hero__scroll" id="heroScroll">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</header>
+
+<!-- ============================================
+     MARQUEE STRIP
+     Duplicated segment creates seamless infinite loop.
+============================================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <div class="marquee__seg">
+      <span class="marquee__text">One West End</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Waterline Square</span><span class="marquee__sep"></span>
+      <span class="marquee__text">611 West 56th</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Hudson Yards</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Lincoln Square</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Midtown West</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Forest Hills Advisors</span><span class="marquee__sep"></span>
+    </div>
+    <!-- Duplicate for seamless loop — do not remove -->
+    <div class="marquee__seg" aria-hidden="true">
+      <span class="marquee__text">One West End</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Waterline Square</span><span class="marquee__sep"></span>
+      <span class="marquee__text">611 West 56th</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Hudson Yards</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Lincoln Square</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Midtown West</span><span class="marquee__sep"></span>
+      <span class="marquee__text">Forest Hills Advisors</span><span class="marquee__sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MANIFESTO
+     One bold editorial statement. Centered.
+============================================ -->
+<section class="manifesto">
+  <blockquote class="manifesto__quote reveal">
+    We exist at the intersection of <strong>architecture</strong>,<br>
+    intelligence, and <strong>access.</strong>
+  </blockquote>
+  <div class="gold-rule gold-rule--center reveal" style="--delay:.2s"></div>
+  <p class="manifesto__caption reveal" style="--delay:.35s">
+    Private Advisory &nbsp;·&nbsp; New York City
+  </p>
+</section>
+
+<!-- ============================================
+     FEATURED DEVELOPMENTS
+     Asymmetric editorial grid.
+     Left: One West End (tall hero card)
+     Right: Waterline Square + 611 West 56th
+============================================ -->
+<section class="section devs">
+  <div class="devs__header reveal">
+    <div>
+      <span class="overline">Featured Developments</span>
+      <h2 class="h-display">Curated<br><em>Residences</em></h2>
+    </div>
+    <a href="/neighborhoods.html" class="devs__view-all">View All Developments</a>
+  </div>
+
+  <div class="dev-grid">
+    <!-- CARD 1: One West End — tall left column -->
+    <a href="exclusive/11E.html" class="dev-card">
+      <img class="dev-card__img"
+           src="exclusive/assets/images/one-west-end-v2/one-west-end.webp"
+           alt="One West End"
+           loading="lazy">
+      <div class="dev-card__overlay"></div>
+      <div class="dev-card__content">
+        <span class="dev-card__loc">Lincoln Square · Riverside Center</span>
+        <h3 class="dev-card__name">One West End</h3>
+        <span class="dev-card__cta">View Exclusive Listing ↗</span>
+      </div>
+    </a>
+
+    <!-- CARD 2: Waterline Square -->
+    <a href="#" class="dev-card">
+      <!-- Replace div with <img> once you have the image -->
+      <div class="dev-card__placeholder"
+           style="background: linear-gradient(135deg, #08121E 0%, #0E2238 100%); min-height: 340px;">
+      </div>
+      <div class="dev-card__overlay" style="background: linear-gradient(to top, rgba(5,5,5,.95) 0%, rgba(5,5,5,.3) 55%, transparent 100%)"></div>
+      <div class="dev-card__content">
+        <span class="dev-card__loc">Lincoln Square · Hudson River</span>
+        <h3 class="dev-card__name">Waterline Square</h3>
+        <span class="dev-card__cta">Explore Development ↗</span>
+      </div>
+    </a>
+
+    <!-- CARD 3: 611 West 56th -->
+    <a href="#" class="dev-card">
+      <div class="dev-card__placeholder"
+           style="background: linear-gradient(135deg, #160B0B 0%, #281414 100%); min-height: 340px;">
+      </div>
+      <div class="dev-card__overlay" style="background: linear-gradient(to top, rgba(5,5,5,.95) 0%, rgba(5,5,5,.3) 55%, transparent 100%)"></div>
+      <div class="dev-card__content">
+        <span class="dev-card__loc">Midtown West</span>
+        <h3 class="dev-card__name">611 West 56th</h3>
+        <span class="dev-card__cta">Explore Development ↗</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================
+     NEIGHBORHOODS GRID
+     3 × 2 Sieber-style cinematic cards.
+     
+     IMAGE NOTES:
+     Replace the Unsplash URLs below with your own
+     neighborhood photography for production.
+     Dimensions: 800×600px minimum, landscape.
+============================================ -->
+<section class="section hoods section--dark">
+  <div class="hoods__intro">
+    <span class="overline reveal">Manhattan Neighborhoods</span>
+    <h2 class="h-display reveal" style="--delay:.1s">
+      Where We<br><em>Operate</em>
+    </h2>
+    <p class="hoods__body reveal" style="--delay:.22s">
+      Deep intelligence across Manhattan's most coveted residential corridors.
+      Each neighborhood represents a distinct lifestyle and architectural identity.
+    </p>
+  </div>
+
+  <div class="hood-grid">
+    <a href="#" class="hood-card reveal" style="--delay:.05s">
+      <img class="hood-card__img"
+           src="https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=900&q=85&auto=format"
+           alt="Lincoln Square" loading="lazy">
+      <div class="hood-card__overlay"></div>
+      <div class="hood-card__tint"></div>
+      <div class="hood-card__content">
+        <h3 class="hood-card__name">Lincoln Square</h3>
+        <span class="hood-card__arrow">Explore →</span>
+      </div>
+    </a>
+    <a href="#" class="hood-card reveal" style="--delay:.12s">
+      <img class="hood-card__img"
+           src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&q=85&auto=format"
+           alt="Midtown West" loading="lazy">
+      <div class="hood-card__overlay"></div>
+      <div class="hood-card__tint"></div>
+      <div class="hood-card__content">
+        <h3 class="hood-card__name">Midtown West</h3>
+        <span class="hood-card__arrow">Explore →</span>
+      </div>
+    </a>
+    <a href="#" class="hood-card reveal" style="--delay:.2s">
+      <img class="hood-card__img"
+           src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=900&q=85&auto=format"
+           alt="Hudson Yards" loading="lazy">
+      <div class="hood-card__overlay"></div>
+      <div class="hood-card__tint"></div>
+      <div class="hood-card__content">
+        <h3 class="hood-card__name">Hudson Yards</h3>
+        <span class="hood-card__arrow">Explore →</span>
+      </div>
+    </a>
+    <a href="#" class="hood-card reveal" style="--delay:.08s">
+      <img class="hood-card__img"
+           src="https://images.unsplash.com/photo-1601134467661-3d775b999c8b?w=900&q=85&auto=format"
+           alt="Midtown East" loading="lazy">
+      <div class="hood-card__overlay"></div>
+      <div class="hood-card__tint"></div>
+      <div class="hood-card__content">
+        <h3 class="hood-card__name">Midtown East</h3>
+        <span class="hood-card__arrow">Explore →</span>
+      </div>
+    </a>
+    <a href="#" class="hood-card reveal" style="--delay:.16s">
+      <img class="hood-card__img"
+           src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=85&auto=format"
+           alt="Forest Hills" loading="lazy">
+      <div class="hood-card__overlay"></div>
+      <div class="hood-card__tint"></div>
+      <div class="hood-card__content">
+        <h3 class="hood-card__name">Forest Hills</h3>
+        <span class="hood-card__arrow">Explore →</span>
+      </div>
+    </a>
+    <a href="#" class="hood-card reveal" style="--delay:.24s">
+      <img class="hood-card__img"
+           src="https://images.unsplash.com/photo-1522083165195-3424ed129620?w=900&q=85&auto=format"
+           alt="Forest Hills Gardens" loading="lazy">
+      <div class="hood-card__overlay"></div>
+      <div class="hood-card__tint"></div>
+      <div class="hood-card__content">
+        <h3 class="hood-card__name">Forest Hills Gardens</h3>
+        <span class="hood-card__arrow">Explore →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================
+     ADVISORY APPROACH
+     Two-column editorial with decorative frame.
+============================================ -->
+<section class="section advisory">
+  <div class="advisory__inner">
+    <div class="advisory__text">
+      <span class="overline reveal">Our Approach</span>
+      <h2 class="h-display reveal" style="--delay:.1s">
+        Intelligence<br><em>Refined</em>
+      </h2>
+      <p class="advisory__body reveal" style="--delay:.22s">
+        Forest Hills Advisors represents a new model of residential advisory —
+        built on deep market knowledge, architectural literacy, and curated
+        relationships with the city's most significant new developments.
+      </p>
+      <ul class="advisory__services reveal" style="--delay:.32s">
+        <li>Development Advisory</li>
+        <li>Luxury Buyer Strategy</li>
+        <li>Off-Market Access</li>
+        <li>Neighborhood Intelligence</li>
+        <li>New Development Advisory</li>
+      </ul>
+    </div>
+    <div class="advisory__img-wrap reveal" style="--delay:.18s">
+      <img class="advisory__img"
+           src="exclusive/assets/images/one-west-end-v2/lobby.jpg"
+           alt="One West End Lobby"
+           loading="lazy">
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="stats">
+    <div class="stat reveal" style="--delay:.0s">
+      <span class="stat__num">$2B+</span>
+      <span class="stat__label">In Represented Transactions</span>
+    </div>
+    <div class="stat reveal" style="--delay:.1s">
+      <span class="stat__num">4</span>
+      <span class="stat__label">Target Neighborhoods</span>
+    </div>
+    <div class="stat reveal" style="--delay:.2s">
+      <span class="stat__num">100%</span>
+      <span class="stat__label">Discretion Guaranteed</span>
+    </div>
+    <div class="stat reveal" style="--delay:.3s">
+      <span class="stat__num">NYC</span>
+      <span class="stat__label">Exclusively New York</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     EXCLUSIVE LISTING BANNER
+     One West End 11E — deep green background.
+============================================ -->
+<div class="exclusive">
+  <div class="exclusive__left reveal">
+    <span class="exclusive__label">Current Exclusive Listing</span>
+    <h2 class="exclusive__heading">
+      One West End · Residence 11E<br>
+      <span class="exclusive__price">$1,980,000</span>
+    </h2>
+  </div>
+  <div class="reveal" style="--delay:.2s">
+    <a href="exclusive/11E.html" class="btn-gold">View Exclusive Listing</a>
+  </div>
+</div>
+
+<!-- ============================================
+     CONTACT / CTA
+============================================ -->
+<section class="section contact" id="contact">
+  <div class="contact__inner">
+    <h2 class="contact__title reveal">Begin Your<br><em>Search</em></h2>
+    <p class="contact__sub reveal" style="--delay:.12s">Private Advisory · By Appointment Only</p>
+    <a href="mailto:alex@foresthillsadvisors.com" class="btn-gold reveal" style="--delay:.22s">
+      Inquire Privately
+    </a>
+    <div class="contact__agent reveal" style="--delay:.34s">
+      <p>Alexandru Galiceanu &nbsp;·&nbsp; Exclusive Agent</p>
+      <p>
+        <a href="mailto:alex@foresthillsadvisors.com">Alex@ForestHillsAdvisors.com</a>
+        &ensp;·&ensp;
+        <a href="tel:9179770381">917.977.0381</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer>
+  <div class="footer__inner">
+    <div class="footer__logo">Forest Hills <em>Advisors</em></div>
+    <ul class="footer__links">
+      <li><a href="/advisory.html">Advisory</a></li>
+      <li><a href="/neighborhoods.html">Developments</a></li>
+      <li><a href="/neighborhoods.html">Neighborhoods</a></li>
+      <li><a href="#contact">Inquire</a></li>
+    </ul>
+  </div>
+  <p class="footer__legal">
+    &copy; 2025 Forest Hills Advisors LLC &nbsp;·&nbsp; New York, NY &nbsp;·&nbsp; Licensed Real Estate Advisor
+  </p>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+============================================ -->
+<script>
+/* ============================================
+   CUSTOM CURSOR
+   Dot follows mouse position immediately via
+   direct style assignment (no CSS transition).
+   Ring follows with interpolated lag using
+   requestAnimationFrame — gives the "floating"
+   luxury feel at ~12% lerp each frame.
+============================================ */
+const dot  = document.getElementById('curDot');
+const ring = document.getElementById('curRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+window.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top  = my + 'px';
+});
+
+(function lerpRing() {
+  rx += (mx - rx) * 0.11;
+  ry += (my - ry) * 0.11;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(lerpRing);
+})();
+
+// Ring expands on interactive elements
+document.querySelectorAll('a, button, .dev-card, .hood-card').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+});
+
+/* ============================================
+   NAVIGATION — scroll state
+   Adds .scrolled class after 80px of scroll.
+   Class triggers dark glass + gold border via CSS.
+============================================ */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+}, { passive: true });
+
+/* ============================================
+   HERO ENTRANCE ANIMATION
+   Sequential reveal using setTimeout.
+   Each element transitions via CSS (opacity + Y).
+   Delays: eyebrow 300ms → title 550ms → sub 820ms
+           → scroll indicator 1300ms
+============================================ */
+window.addEventListener('load', () => {
+  const items = [
+    { el: document.getElementById('heroEyebrow'), delay: 300  },
+    { el: document.getElementById('heroTitle'),   delay: 550  },
+    { el: document.getElementById('heroSub'),     delay: 820  },
+    { el: document.getElementById('heroScroll'),  delay: 1300 },
+  ];
+  items.forEach(({ el, delay }) => {
+    if (!el) return;
+    el.style.transition = 'opacity 1.3s cubic-bezier(0.16,1,0.3,1), transform 1.5s cubic-bezier(0.16,1,0.3,1)';
+    setTimeout(() => {
+      el.style.opacity   = '1';
+      el.style.transform = 'none';
+    }, delay);
+  });
+});
+
+/* ============================================
+   SCROLL REVEAL (Intersection Observer)
+   Watches all .reveal elements.
+   Adds .in-view when threshold (14%) crossed.
+   Unobserves after triggering — performance.
+   rootMargin pulls trigger 50px early.
+============================================ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.14, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ============================================
+   IMAGE PARALLAX (development cards)
+   Subtle vertical shift as card scrolls through
+   viewport. Creates depth without being distracting.
+   Capped at ±30px shift. Only runs on desktop.
+============================================ */
+if (window.innerWidth > 900) {
+  const parallaxImgs = document.querySelectorAll('.dev-card .dev-card__img[src]');
+
+  window.addEventListener('scroll', () => {
+    parallaxImgs.forEach(img => {
+      const card = img.closest('.dev-card');
+      const rect = card.getBoundingClientRect();
+      const vh   = window.innerHeight;
+      if (rect.top < vh && rect.bottom > 0) {
+        const progress = (vh - rect.top) / (vh + rect.height);
+        const shift    = (progress - 0.5) * 60;
+        img.style.transform = `translateY(${shift}px) scale(1.06)`;
+      }
+    });
+  }, { passive: true });
+}
+</script>
+
+</body>
+</html>
