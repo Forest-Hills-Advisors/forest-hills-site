@@ -241,11 +241,21 @@ section{ padding:110px 6vw; }
 }
 
 /* ============ EXTERIOR GRID ============ */
-.exterior-grid{
-  display:grid; grid-template-columns:1.4fr 1fr; gap:18px;
+.exterior-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Equal 50/50 split */
+  gap: 18px;
+  align-items: stretch;
 }
-.exterior-grid img{ width:100%; height:100%; object-fit:cover; }
-.exterior-lead{ grid-row: span 2; }
+.exterior-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+.exterior-lead {
+  grid-row: auto; /* Removes the 2-row span so both images are identical size */
+}
 
 /* ============ PAIR MODULES ============ */
 .pair-stack{ margin-bottom:80px; }
@@ -588,7 +598,7 @@ footer{
 
 <!-- ============ CLOSING SKYLINE ============ -->
 <div class="closing reveal">
-  <img src="../../assets/listings/67-102-dartmouth-st/12-1200.avif" loading="lazy" alt="Forest Hills skyline view toward Manhattan">
+  <img src="../../assets/listings/67-102-dartmouth-st/station-square-v2.avif" loading="lazy" alt="Forest Hills skyline view toward Manhattan">
   <div class="closing-cap">Forest Hills — close enough to see the city, far enough to leave it behind.</div>
 </div>
 
